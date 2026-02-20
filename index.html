@@ -1,279 +1,390 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="poses-section" data-aos="fade-up">
+      <div class="poses-header">
+        <h1>Yoga Poses Library</h1>
+        <p>
+          Explore yoga poses by type,Its benefits, general practice, and anatomy
+          focus.
+        </p>
+      </div>
 
-<section class="poses-section">
+      <div class="pose-tabs">
+        <button class="active" onclick="showTab('type', this)">
+          Poses by Type
+        </button>
+        <button onclick="showTab('benefit', this)">Poses by Benefit</button>
+        <button onclick="showTab('general', this)">Poses General</button>
+        <button onclick="showTab('anatomy', this)">Poses by Anatomy</button>
+      </div>
 
-<div class="poses-header">
-    <h1>Yoga Poses Library</h1>
-    <p>Explore yoga poses by type, benefits, general practice, and anatomy focus.</p>
-</div>
+      <div class="pose-content-area">
+        <div id="type" class="tab-content active">
+          <div class="pose-grid type-grid">
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1664392303637-40a073ae1acc?q=80&w=761&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Sun Salutation A<br />(Surya Namaskar A)</h3>
+              <span>Standing Flow</span>
+            </div>
 
-<div class="pose-tabs">
-   <button class="active" onclick="showTab('type', this)">Poses by Type</button>
-<button onclick="showTab('benefit', this)">Poses by Benefit</button>
-<button onclick="showTab('general', this)">Poses General</button>
-<button onclick="showTab('anatomy', this)">Poses by Anatomy</button>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://media.istockphoto.com/id/1311464336/photo/sportsman-practicing-mountain-climbing-exercise.jpg?s=2048x2048&w=is&k=20&c=TRuXt86jaN-TaWA00DsylM6LPwWPlBoZVaYlGdyGQlg="
+                alt=""
+              />
+              <h3>Mountain Climbers</h3>
+              <span>Dynamic Pose</span>
+            </div>
 
-</div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://cdn.yogajournal.com/wp-content/uploads/2021/11/Warrior-3-Pose_Andrew-Clark_2400x1350.jpeg?auto=webp&width=3840&quality=75&fit=cover"
+                alt=""
+              />
+              <h3>Warrior II & III<br />(Virabhadrasana II & III)</h3>
+              <span>Strength & Balance</span>
+            </div>
 
-<div class="pose-content-area">
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://as1.ftcdn.net/v2/jpg/04/75/26/04/1000_F_475260413_C2iZ9sNpQ0BDPtzso1wfcZxePYsUyljM.jpg"
+                alt=""
+              />
+              <h3>Goddess Pose<br />(Utkata Konasana)</h3>
+              <span>Power Pose</span>
+            </div>
 
-<div id="type" class="tab-content active">
-<div class="pose-grid type-grid">
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://yogaselection.com/wp-content/uploads/2025/04/viparita-karani-tutorial.jpg"
+                alt=""
+              />
+              <h3>Legs-Up-The-Wall<br />(Viparita Karani)</h3>
+              <span>Restorative</span>
+            </div>
 
-<div class="pose-card type-card">
-    <img src="https://plus.unsplash.com/premium_photo-1664392303637-40a073ae1acc?q=80&w=761&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-    <h3>Sun Salutation A<br>(Surya Namaskar A)</h3>
-    <span>Standing Flow</span>
-</div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://images.unsplash.com/photo-1767611115570-92e679b820ed?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Downward-Facing Dog</h3>
+              <span>Stretching</span>
+            </div>
 
-<div class="pose-card type-card">
-    <img src="https://media.istockphoto.com/id/1311464336/photo/sportsman-practicing-mountain-climbing-exercise.jpg?s=2048x2048&w=is&k=20&c=TRuXt86jaN-TaWA00DsylM6LPwWPlBoZVaYlGdyGQlg=" alt="">
-    <h3>Mountain Climbers</h3>
-    <span>Dynamic Pose</span>
-</div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1663134006557-79468fcf5ffc?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Bridge Pose<br />(Setu Bandha Sarvangasana)</h3>
+              <span>Backbend</span>
+            </div>
 
-<div class="pose-card type-card">
-    <img src="https://cdn.yogajournal.com/wp-content/uploads/2021/11/Warrior-3-Pose_Andrew-Clark_2400x1350.jpeg?auto=webp&width=3840&quality=75&fit=cover" alt="">
-    <h3>Warrior II & III<br>(Virabhadrasana II & III)</h3>
-    <span>Strength & Balance</span>
-</div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1682088272871-96c07e895042?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Mountain Pose<br />(Tadasana)</h3>
+              <span>Foundation</span>
+            </div>
 
-<div class="pose-card type-card">
-    <img src="https://as1.ftcdn.net/v2/jpg/04/75/26/04/1000_F_475260413_C2iZ9sNpQ0BDPtzso1wfcZxePYsUyljM.jpg" alt="">
-    <h3>Goddess Pose<br>(Utkata Konasana)</h3>
-    <span>Power Pose</span>
-</div>
-
-<div class="pose-card type-card">
-    <img src="https://yogaselection.com/wp-content/uploads/2025/04/viparita-karani-tutorial.jpg" alt="">
-    <h3>Legs-Up-The-Wall<br>(Viparita Karani)</h3>
-    <span>Restorative</span>
-</div>
-
-<div class="pose-card type-card">
-    <img src="https://images.unsplash.com/photo-1767611115570-92e679b820ed?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-    <h3>Downward-Facing Dog</h3>
-    <span>Stretching</span>
-</div>
-
-<div class="pose-card type-card">
-    <img src="https://plus.unsplash.com/premium_photo-1663134006557-79468fcf5ffc?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-    <h3>Bridge Pose<br>(Setu Bandha Sarvangasana)</h3>
-    <span>Backbend</span>
-</div>
-
-<div class="pose-card type-card">
-    <img src="https://plus.unsplash.com/premium_photo-1682088272871-96c07e895042?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-    <h3>Mountain Pose<br>(Tadasana)</h3>
-    <span>Foundation</span>
-</div>
-
-<div class="pose-card type-card">
-    <img src="https://plus.unsplash.com/premium_photo-1672352100050-65cb2ee4d818?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-    <h3>plank<br>(Core)</h3>
-    <span>Foundation</span>
-</div>
-</div>
-</div>
-
-<div id="benefit" class="tab-content">
-    <div class="pose-grid type-grid">
-        
-        <div class="pose-card type-card">
-            <img src="https://www.flexifyme.com/blogs/wp-content/uploads/2024/07/Stress-Relief-Yoga-Poses.jpg" alt="">
-            <h3>Stress Relief Yoga</h3>
-            <span>Relaxation</span>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1672352100050-65cb2ee4d818?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>plank<br />(Core)</h3>
+              <span>Foundation</span>
+            </div>
+          </div>
         </div>
 
-    <div class="pose-card type-card">
-      <img src="https://images.unsplash.com/photo-1606889464198-fcb18894cf50?q=80&w=790&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Weight Loss Yoga</h3>
-      <span>Fat Burn</span>
-    </div>
-    
-    <div class="pose-card type-card">
-        <img src="https://plus.unsplash.com/premium_photo-1683133269843-09a177048cef?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-        <h3>Flexibility Improvement</h3>
-        <span>Stretching</span>
-    </div>
-    
-    <div class="pose-card type-card">
-        <img src="https://plus.unsplash.com/premium_photo-1698091420825-fe56d0d3b7a4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-        <h3>Core Strength Yoga</h3>
-        <span>Strength</span>
-    </div>
-    
-    <div class="pose-card type-card">
-        <img src="https://images.unsplash.com/flagged/photo-1556746834-1cb5b8fabd54?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Heart Health Yoga</h3>
-      <span>Cardio</span>
-    </div>
-    
-    <div class="pose-card type-card">
-        <img src="https://plus.unsplash.com/premium_photo-1716025656382-cc9dfe8714a7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-        <h3>Better Sleep Yoga</h3>
-        <span>Sleep Therapy</span>
-    </div>
-    <div class="pose-card type-card">
-        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Strength Building yoga</h3>
-      <span>strength</span>
-    </div>
-      <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1726812095690-996fdfec071f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Back Pain & Spine Health yoga</h3>
-      <span>Relaxation</span>
-    </div>
-      <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1661724211404-c49a5cfa6a80?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Immunity Boost Yoga</h3>
-      <span>immunity</span>
-    </div>
-    
-</div>
-</div>
-<div id="general" class="tab-content">
-  <div class="pose-grid type-grid">
+        <div id="benefit" class="tab-content">
+          <div class="pose-grid type-grid">
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://www.flexifyme.com/blogs/wp-content/uploads/2024/07/Stress-Relief-Yoga-Poses.jpg"
+                alt=""
+              />
+              <h3>Stress Relief Yoga</h3>
+              <span>Relaxation</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://images.unsplash.com/photo-1552286450-4a669f880062?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Mountain Pose (Tadasana)</h3>
-      <span>Basic Pose</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://images.unsplash.com/photo-1606889464198-fcb18894cf50?q=80&w=790&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Weight Loss Yoga</h3>
+              <span>Fat Burn</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://media.istockphoto.com/id/1375659754/photo/anonymous-caucasian-woman-in-a-downward-facing-dog-position-on-a-yoga-mat.jpg?s=2048x2048&w=is&k=20&c=TEcTzZQhc5YkIlIJ9AF3C_0BShHtYZMAzL0XHyHiyzQ=" alt="">
-      <h3>Downward Facing Dog</h3>
-      <span>Stretch</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1683133269843-09a177048cef?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Flexibility Improvement</h3>
+              <span>Stretching</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1666283137563-f420ff4b3af3?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Child’s Pose (Balasana)</h3>
-      <span>Relaxation</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1698091420825-fe56d0d3b7a4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Core Strength Yoga</h3>
+              <span>Strength</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1716392169035-895cb3146d9c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Warrior Pose (Virabhadrasana)</h3>
-      <span>Strength</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://images.unsplash.com/flagged/photo-1556746834-1cb5b8fabd54?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Heart Health Yoga</h3>
+              <span>Cardio</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://media.istockphoto.com/id/539294249/photo/he-lives-a-balanced-lifestyle.jpg?s=2048x2048&w=is&k=20&c=_E-d4cTtSyLRgzTgSuY55LPwwdywXqJJB7mTqeBqieE=" alt="">
-      <h3>Tree Pose (Vrikshasana)</h3>
-      <span>Balance</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1716025656382-cc9dfe8714a7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Better Sleep Yoga</h3>
+              <span>Sleep Therapy</span>
+            </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Strength Building yoga</h3>
+              <span>strength</span>
+            </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1726812095690-996fdfec071f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Back Pain & Spine Health yoga</h3>
+              <span>Relaxation</span>
+            </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1661724211404-c49a5cfa6a80?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Immunity Boost Yoga</h3>
+              <span>immunity</span>
+            </div>
+          </div>
+        </div>
+        <div id="general" class="tab-content">
+          <div class="pose-grid type-grid">
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://images.unsplash.com/photo-1552286450-4a669f880062?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Mountain Pose (Tadasana)</h3>
+              <span>Basic Pose</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1672352719913-790c9f9276eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Bridge Pose (Setu Bandhasana)</h3>
-      <span>Backbend</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://media.istockphoto.com/id/1375659754/photo/anonymous-caucasian-woman-in-a-downward-facing-dog-position-on-a-yoga-mat.jpg?s=2048x2048&w=is&k=20&c=TEcTzZQhc5YkIlIJ9AF3C_0BShHtYZMAzL0XHyHiyzQ="
+                alt=""
+              />
+              <h3>Downward Facing Dog</h3>
+              <span>Stretch</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1661601741915-2a6b6e1596dd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Plank Pose</h3>
-      <span>Core</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1666283137563-f420ff4b3af3?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Child’s Pose (Balasana)</h3>
+              <span>Relaxation</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1682088278470-0a95814e846d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Cobra Pose (Bhujangasana)</h3>
-      <span>Spine</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1716392169035-895cb3146d9c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Warrior Pose (Virabhadrasana)</h3>
+              <span>Strength</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://plus.unsplash.com/premium_photo-1661751443182-25c0328ddcbe?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-      <h3>Seated Forward Bend</h3>
-      <span>Stretch</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://media.istockphoto.com/id/539294249/photo/he-lives-a-balanced-lifestyle.jpg?s=2048x2048&w=is&k=20&c=_E-d4cTtSyLRgzTgSuY55LPwwdywXqJJB7mTqeBqieE="
+                alt=""
+              />
+              <h3>Tree Pose (Vrikshasana)</h3>
+              <span>Balance</span>
+            </div>
 
-  </div>
-</div>
-<div id="anatomy" class="tab-content">
-  <div class="pose-grid type-grid">
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1672352719913-790c9f9276eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Bridge Pose (Setu Bandhasana)</h3>
+              <span>Backbend</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://i.pinimg.com/564x/99/04/c0/9904c031b2f8317d8251a3f03aa126d7.jpg" alt="">
-      <h3>Neck & Shoulders</h3>
-      <span>Upper Body</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1661601741915-2a6b6e1596dd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Plank Pose</h3>
+              <span>Core</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="data:image/jpeg;base64,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" alt="">
-      <h3>Spine & Back</h3>
-      <span>Core Area</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1682088278470-0a95814e846d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Cobra Pose (Bhujangasana)</h3>
+              <span>Spine</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://my.clevelandclinic.org/-/scassets/images/org/health/articles/pelvis" alt="">
-      <h3>Hips & Pelvis</h3>
-      <span>Lower Body</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1661751443182-25c0328ddcbe?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt=""
+              />
+              <h3>Seated Forward Bend</h3>
+              <span>Stretch</span>
+            </div>
+          </div>
+        </div>
+        <div id="anatomy" class="tab-content">
+          <div class="pose-grid type-grid">
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://i.pinimg.com/564x/99/04/c0/9904c031b2f8317d8251a3f03aa126d7.jpg"
+                alt=""
+              />
+              <h3>Neck & Shoulders</h3>
+              <span>Upper Body</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqtGtxiJK02eWkZPxqyn-QvItbufY8RykDCg&s" alt="">
-      <h3>Legs & Knees</h3>
-      <span>Strength</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="data:image/jpeg;base64,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"
+                alt=""
+              />
+              <h3>Spine & Back</h3>
+              <span>Core Area</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://weighttrainingexercises4you.com/wp-content/uploads/One-Arm-Wrist-Curl.jpg" alt="">
-      <h3>Arms & Wrists</h3>
-      <span>Upper Strength</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://my.clevelandclinic.org/-/scassets/images/org/health/articles/pelvis"
+                alt=""
+              />
+              <h3>Hips & Pelvis</h3>
+              <span>Lower Body</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://ik.imagekit.io/02fmeo4exvw/fit-life/2017/03/2017-02-28-improve-core-strength-header.png" alt="">
-      <h3>Core & Abdomen</h3>
-      <span>Balance</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqtGtxiJK02eWkZPxqyn-QvItbufY8RykDCg&s"
+                alt=""
+              />
+              <h3>Legs & Knees</h3>
+              <span>Strength</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="https://media.post.rvohealth.io/wp-content/uploads/2020/09/5496-black_female_yoga_breathing-732x549-thumbnail-732x549.jpg" alt="">
-      <h3>Chest & Lungs</h3>
-      <span>Breathing</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://weighttrainingexercises4you.com/wp-content/uploads/One-Arm-Wrist-Curl.jpg"
+                alt=""
+              />
+              <h3>Arms & Wrists</h3>
+              <span>Upper Strength</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="" alt="">
-      <h3>Full Body</h3>
-      <span>Complete Flow</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://ik.imagekit.io/02fmeo4exvw/fit-life/2017/03/2017-02-28-improve-core-strength-header.png"
+                alt=""
+              />
+              <h3>Core & Abdomen</h3>
+              <span>Balance</span>
+            </div>
 
-    <div class="pose-card type-card">
-      <img src="" alt="">
-      <h3>Head & Brain</h3>
-      <span>Mental Focus</span>
-    </div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://media.post.rvohealth.io/wp-content/uploads/2020/09/5496-black_female_yoga_breathing-732x549-thumbnail-732x549.jpg"
+                alt=""
+              />
+              <h3>Chest & Lungs</h3>
+              <span>Breathing</span>
+            </div>
 
-  </div>
-</div>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=1170&auto=format&fit=crop"
+                alt=""
+              />
+              <h3>Full Body</h3>
+              <span>Complete Flow</span>
+            </div>
 
-</div>
-
-
-</section>
-
-
-
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="script.js"></script>
-<script>
-  AOS.init();
-</script>
+            <div class="pose-card type-card" data-aos="zoom-in">
+              <img
+                src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1099&auto=format&fit=crop"
+                alt=""
+              />
+              <h3>Head & Brain</h3>
+              <span>Mental Focus</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </html>
