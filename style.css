@@ -1,0 +1,196 @@
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f2f5f9;
+}
+
+.poses-section {
+    padding: 70px 8%;
+}
+
+.poses-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.poses-header h1 {
+    font-size: 42px;
+    color: #1c1c1c;
+    margin-bottom: 10px;
+}
+
+.poses-header p {
+    color: #666;
+    max-width: 600px;
+    margin: auto;
+}
+
+.pose-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.pose-tabs button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    background: #e3e7ed;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: #333;
+}
+
+.pose-tabs button:hover {
+    background: linear-gradient(to right, #ffa200, #ff0000cf);
+    color: #fff;
+}
+
+.pose-tabs button.active {
+    background: linear-gradient(to right, #ce0404, #ff3f0a);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(206,4,4,0.35);
+}
+
+.pose-content-area {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+
+.pose-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap: 30px;
+}
+
+.pose-card {
+    background: #f8f9fb;
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.3s;
+    border-left: 5px solid #d90b0bd1;
+}
+
+.pose-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.pose-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.pose-card h3 {
+    margin: 0;
+    color: #333;
+    font-size: 22px;
+}
+
+.pose-card span {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: white;
+    background: #3f72af;
+    padding: 4px 14px;
+    border-radius: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+.pose-grid.type-grid {
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 35px;
+
+}
+
+.pose-card.type-card {
+    background: linear-gradient(135deg, #fdfefe, #f1f6ff);
+    padding: 25px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 70vh;
+    border-radius: 20px;
+    padding: 30px 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: 0.35s ease;
+}
+
+
+
+.pose-card.type-card img {
+    width: 100%;
+    height: 229px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+
+}
+
+.pose-card.type-card::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    bottom: 0;
+    left: 0;
+}
+
+.pose-card.type-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+}
+
+.pose-card.type-card h3 {
+    font-size: 17px;
+    color: #1c1c1c;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.pose-card.type-card span {
+    position: absolute;
+    top: 31px;
+    left: 31px;
+    padding: 8px 18px;
+    font-size: 13px;
+    border-radius: 25px;
+    background: linear-gradient(to right, #ce0404, #ff3f0a);
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+
+@media (max-width: 900px) {
+    .pose-grid.type-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .pose-grid.type-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .poses-header h1 {
+        font-size: 30px;
+    }
+}
