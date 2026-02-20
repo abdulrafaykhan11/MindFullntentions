@@ -248,7 +248,7 @@ const poseData = {
   "neck-shoulders": {
     title: "Neck & Shoulders Relief (Greeva Yoga)",
     image:
-      "https://plus.unsplash.com/premium_photo-1683133269843-09a177048cef?q=80&w=1170&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1579455150073-3a7974b46aa0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bmVjayUyMGFuZCUyMHNob3VsZGVyJTIweW9nYXxlbnwwfHwwfHx8MA%3D%3D",
     description:
       "Greeva Yoga, or Neck & Shoulders Relief, is a specialized practice designed to liberate the upper body from the chronic tension of the digital age. Long hours spent looking at screens often lead to 'tech neck'—a condition characterized by a forward-leaning head and collapsed shoulders. This sequence systematically releases the trapezius, levator scapulae, and pectoral muscles to restore the natural cervical curve. By focusing on gentle range-of-motion exercises and heart-opening stretches, the practitioner can alleviate headaches, improve respiratory capacity, and regain a state of light, effortless uprightness.",
     benefits: [
@@ -438,7 +438,7 @@ const poseData = {
   "child-pose-type": {
     title: "Child's Pose (Balasana)",
     image:
-    "https://plus.unsplash.com/premium_photo-1674675646725-5b4aca5adb21?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8eW9nYXxlbnwwfHwwfHx8MA%3D%3D",
+      "https://plus.unsplash.com/premium_photo-1674675646725-5b4aca5adb21?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8eW9nYXxlbnwwfHwwfHx8MA%3D%3D",
     description:
       "Balasana, or Child's Pose, is the ultimate restorative sanctuary in yoga practice. This grounding posture offers a deep sense of safety and tranquility, allowing the practitioner to turn their awareness inward. By folding the torso over the thighs and resting the forehead on the mat, we gently stretch the hips, thighs, and ankles while relieving tension in the lower back and neck. It is a vital 'reset button' during intense yoga flows or stressful moments in daily life.",
     benefits: [
@@ -513,7 +513,7 @@ const poseData = {
   "core-strength": {
     title: "Core Strength Yoga (Nabhi Sequence)",
     image:
-      "https://plus.unsplash.com/premium_photo-1698091420825-fe56d0d3b7a4?q=80&w=1170&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1698091420825-fe56d0d3b7a4?q=80&w=1170&auto=format&fit=crop",
     description:
       "Nabhi Yoga, or Core Strength Yoga, is a specialized series of practices meticulously designed to fire up and stabilize your physical and energetic center. Your core is more than just abdominal muscles; it is the vital bridge between your upper and lower body and the sanctuary of your internal organs. This sequence utilizes static holds, pelvic floor engagement (Mula Bandha), and dynamic resistance to build a functional 'corset' of strength around your spine. It is a powerful practice for anyone seeking better balance, improved posture, and a strong, resilient midsection.",
     benefits: [
@@ -833,7 +833,7 @@ const poseData = {
   "child-pose": {
     title: "Child's Pose (Restorative - Balasana)",
     image:
-      "https://plus.unsplash.com/premium_photo-1674675646725-5b4aca5adb21?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8eW9nYXxlbnwwfHwwfHx8MA%3D%3D",
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1170&auto=format&fit=crop",
     description:
       "Balasana, or Child's Pose, is the ultimate sanctuary in a yoga practice. This restorative posture offers a deep sense of security and internal focus, acting as a mental and physical 'reset' button. By folding the torso over the thighs and resting the forehead on the earth, the practitioner gently stretches the hips, thighs, and ankles while allowing the nervous system to settle. It is a vital pose for releasing tension in the lower back and neck, providing a space for quiet surrender and present-moment awareness.",
     benefits: [
@@ -993,7 +993,7 @@ const poseData = {
   "plank-gen": {
     title: "Plank Pose (Phalakasana)",
     image:
-      "https://plus.unsplash.com/premium_photo-1682088278470-0a95814e846d?q=80&w=1170&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1579455150073-3a7974b46aa0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bmVjayUyMGFuZCUyMHNob3VsZGVyJTIweW9nYXxlbnwwfHwwfHx8MA%3D%3D",
     description:
       "Phalakasana, or Plank Pose, is a quintessential core-stabilizing posture that builds full-body strength and mental grit. This 'powerhouse' pose requires the integration of almost every major muscle group—arms, shoulders, core, glutes, and legs—all working in harmony to maintain a rigid, linear form. Regular practice develops not only physical durability but also 'Tapas' (internal fire) and the mental focus required to remain steady in the face of intensity. It is the literal foundation for many advanced balances and inversions.",
     benefits: [
@@ -1273,7 +1273,7 @@ const poseData = {
   "core-abdomen": {
     title: "Core & Abdomen Power (Agni Kendra)",
     image:
-      "https://plus.unsplash.com/premium_photo-1682088278470-0a95814e846d?q=80&w=1170&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1579455150073-3a7974b46aa0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bmVjayUyMGFuZCUyMHNob3VsZGVyJTIweW9nYXxlbnwwfHwwfHx8MA%3D%3D",
     description:
       "Agni Kendra, or Core & Abdomen Power, focuses on firing up the 'sun center' of the body—the abdominal wall and deep core musculature. This practice utilizes advanced engagement techniques to build a functional 'corset' of strength that stabilizes the spine and powers all external movement. By incorporating both static holds and dynamic transitions, we stimulate the digestive system and build immense internal heat (Tapas). A strong core is the physical and energetic center of a healthy, balanced life.",
     benefits: [
@@ -1832,42 +1832,50 @@ document.addEventListener("DOMContentLoaded", () => {
           const modalBody = document.getElementById("modal-body-content");
           if (modalBody) {
             modalBody.innerHTML = `
-              <img src="${pose.image}" class="img-fluid rounded mb-4 shadow" alt="${pose.title}">
+              <div class="modal-image-container mb-4 position-relative">
+                <img src="${pose.image}" class="img-fluid rounded shadow-lg" alt="${pose.title}">
+                <div class="image-overlay-badge">
+                  <span class="badge bg-primary px-3 py-2 rounded-pill"><i class="fas fa-certificate me-2"></i>Certified Pose</span>
+                </div>
+              </div>
               
-              <div class="mb-4">
-                <h5 class="text-primary fw-bold"><i class="fas fa-info-circle me-2"></i>Description</h5>
-                <p class="text-muted lead">${pose.description}</p>
+              <div class="mb-5 content-card p-4 rounded-4 bg-white border border-light-subtle shadow-sm">
+                <span class="section-label mb-2">Pose Overview</span>
+                <h4 class="mb-3 fw-bold text-dark">${pose.title}</h4>
+                <p class="text-secondary lead fs-6 lh-base">${pose.description}</p>
               </div>
 
-              <div class="row g-4 mb-4">
+              <div class="row g-4 mb-5">
                 <div class="col-md-6">
-                  <h5 class="text-success fw-bold"><i class="fas fa-check-circle me-2"></i>Key Benefits</h5>
-                  <ul class="list-unstyled">
-                    ${pose.benefits.map((b) => `<li class="mb-2"><i class="fas fa-star text-warning me-2"></i>${b}</li>`).join("")}
+                  <div class="benefit-card h-100 p-4 rounded-4 bg-white border-start border-4 border-success shadow-sm">
+                    <span class="section-label mb-3">Therapeutic Benefits</span>
+                    <ul class="list-unstyled mb-0">
+                      ${pose.benefits.map((b) => `<li class="mb-3 d-flex align-items-start"><i class="fas fa-check-circle text-success mt-1 me-3"></i><span class="text-secondary small">${b}</span></li>`).join("")}
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="steps-card h-100 p-4 rounded-4 bg-white border-start border-4 border-primary shadow-sm">
+                    <span class="section-label mb-3">Practice Guide</span>
+                    <ol class="ps-0 mb-0 list-unstyled">
+                      ${pose.steps.map((s, index) => `<li class="mb-3 d-flex align-items-start"><div class="step-num me-3 bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="min-width: 28px; height: 28px;">${index + 1}</div><span class="text-secondary small">${s}</span></li>`).join("")}
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="guidelines-section">
+                <div class="do-box">
+                  <h4 class="text-success"><i class="fas fa-thumbs-up"></i>Vital Alignment (Dos)</h4>
+                  <ul>
+                    ${pose.dos.map((d) => `<li>${d}</li>`).join("")}
                   </ul>
                 </div>
-                <div class="col-md-6">
-                  <h5 class="text-danger fw-bold"><i class="fas fa-list-ol me-2"></i>Practice Steps</h5>
-                  <ol class="ps-3 text-muted">
-                    ${pose.steps.map((s) => `<li class="mb-2">${s}</li>`).join("")}
-                  </ol>
-                </div>
-              </div>
-
-              <div class="guidelines-section bg-light p-4 rounded-4 shadow-sm">
-                <div class="row w-100">
-                  <div class="col-md-6 dos-box">
-                    <h5 class="text-success fw-bold mb-3"><i class="fas fa-thumbs-up me-2"></i>Dos</h5>
-                    <ul class="ps-3 text-muted">
-                      ${pose.dos.map((d) => `<li class="mb-1">${d}</li>`).join("")}
-                    </ul>
-                  </div>
-                  <div class="col-md-6 donts-box">
-                    <h5 class="text-danger fw-bold mb-3"><i class="fas fa-thumbs-down me-2"></i>Don'ts</h5>
-                    <ul class="ps-3 text-muted">
-                      ${pose.donts.map((d) => `<li class="mb-1">${d}</li>`).join("")}
-                    </ul>
-                  </div>
+                <div class="dont-box">
+                  <h4 class="text-danger"><i class="fas fa-thumbs-down"></i>Common Mistakes (Don'ts)</h4>
+                  <ul>
+                    ${pose.donts.map((d) => `<li>${d}</li>`).join("")}
+                  </ul>
                 </div>
               </div>
             `;
