@@ -21,12 +21,107 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <section class="poses-section" data-aos="fade-up">
-      <div class="poses-header">
-        <h1>Yoga Poses Library</h1>
-        <p>
-          Explore yoga poses by type,Its benefits, general practice, and anatomy
-          focus.
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a href="#" class="navbar-brand-wrapper">
+          <div class="logo-container">
+            <img src="logo2.png" alt="Mindful Intentions Logo" class="logo" />
+          </div>
+          <span class="navbar-brand">Mindful Intentions</span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#AboutUs">About Us</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                data-bs-toggle="dropdown"
+                >Aerobic Poses</a
+              >
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">By Type</a></li>
+                <li><a class="dropdown-item" href="#">By Benefit</a></li>
+                <li><a class="dropdown-item" href="#">By Anatomy</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#courses">Courses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#meditation">Meditation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a href="#booking" class="btn navbar-cta">Join Now</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-bg-wrapper">
+        <img src="hero.png" alt="Hero Background" class="hero-img" />
+        <div class="hero-overlay"></div>
+        <div class="hero-shape shape-1"></div>
+        <div class="hero-shape shape-2"></div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="hero-content" data-aos="fade-right">
+              <span class="hero-badge">Mindfulness & Wellness</span>
+              <h1>Healthy Mind,<br /><span>Healthy Life</span></h1>
+              <p>
+                Discover the transformative power of Aerobics and Meditation.
+                Our premium programs are designed to reduce stress, improve
+                mental focus, and build a perfectly balanced lifestyle.
+              </p>
+
+              <div class="hero-btns">
+                <a href="#courses" class="btn-premium btn-fill">
+                  Explore Courses <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#meditation" class="btn-premium btn-outline">
+                  Start Meditation
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="poses-section" id="poses" data-aos="fade-up">
+      <div class="container text-center mb-5">
+        <span class="hero-badge mb-3">Expert Library</span>
+        <h2 class="display-5 fw-bold mb-3">
+          Yoga Poses <span class="text-danger">Library</span>
+        </h2>
+        <p class="text-secondary opacity-75 mx-auto" style="max-width: 600px">
+          Explore a comprehensive guide of professional yoga poses categorized
+          by type, specific health benefits, and anatomical focus.
         </p>
       </div>
 

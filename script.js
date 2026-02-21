@@ -1814,6 +1814,17 @@ const poseData = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  const navbar = document.querySelector(".navbar");
+
+  // Navbar Scroll Logic
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+
   const knowMoreBtns = document.querySelectorAll(".btn-know-more");
   const modalElement = document.getElementById("pose-modal");
 
