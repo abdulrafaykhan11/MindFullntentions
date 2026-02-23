@@ -513,7 +513,7 @@ const poseData = {
   "core-strength": {
     title: "Core Strength Yoga (Nabhi Sequence)",
     image:
-      "https://images.unsplash.com/photo-1698091420825-fe56d0d3b7a4?q=80&w=1170&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599447421416-3414500d18a5?q=80&w=1170&auto=format&fit=crop",
     description:
       "Nabhi Yoga, or Core Strength Yoga, is a specialized series of practices meticulously designed to fire up and stabilize your physical and energetic center. Your core is more than just abdominal muscles; it is the vital bridge between your upper and lower body and the sanctuary of your internal organs. This sequence utilizes static holds, pelvic floor engagement (Mula Bandha), and dynamic resistance to build a functional 'corset' of strength around your spine. It is a powerful practice for anyone seeking better balance, improved posture, and a strong, resilient midsection.",
     benefits: [
@@ -1814,17 +1814,6 @@ const poseData = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const navbar = document.querySelector(".navbar");
-
-  // Navbar Scroll Logic
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add("scrolled");
-    } else {
-      navbar.classList.remove("scrolled");
-    }
-  });
-
   const knowMoreBtns = document.querySelectorAll(".btn-know-more");
   const modalElement = document.getElementById("pose-modal");
 
