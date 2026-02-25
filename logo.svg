@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Premium ruby red — NOT emergency red -->
+    <radialGradient id="bgGrad" cx="42%" cy="32%" r="72%">
+      <stop offset="0%"   stop-color="#E01A38"/>
+      <stop offset="55%"  stop-color="#A8001E"/>
+      <stop offset="100%" stop-color="#520008"/>
+    </radialGradient>
+
+    <!-- Flame gradient (inner glow — warm center) -->
+    <radialGradient id="flameInner" cx="50%" cy="80%" r="60%">
+      <stop offset="0%"   stop-color="rgba(255,200,80,0.25)"/>
+      <stop offset="100%" stop-color="rgba(255,100,50,0)"/>
+    </radialGradient>
+
+    <!-- Gold -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#FFE566"/>
+      <stop offset="50%"  stop-color="#FFC200"/>
+      <stop offset="100%" stop-color="#FF8C00"/>
+    </linearGradient>
+
+    <!-- 3D top sheen -->
+    <linearGradient id="sheen" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%"   stop-color="white" stop-opacity="0.25"/>
+      <stop offset="70%"  stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- White glow on figure -->
+    <filter id="figureGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Gold glow -->
+    <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ── BACKGROUND ── -->
+  <circle cx="100" cy="100" r="97" fill="#3A0008"/>
+  <circle cx="100" cy="100" r="95" fill="url(#bgGrad)"/>
+  <!-- Top glass sheen -->
+  <ellipse cx="78" cy="55" rx="65" ry="40" fill="url(#sheen)"/>
+
+  <!-- ── OUTER GOLD RINGS ── -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0.95"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,220,80,0.18)" stroke-width="1"/>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!--   FLAME SHAPE — bold, centered in the circle   -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <!-- Outer flame (slightly larger, semi-transparent for depth) -->
+  <path
+    d="M 100,168
+       C 62,168 38,148 38,118
+       C 38,90 55,75 65,60
+       C 72,50 75,38 72,28
+       C 82,38 88,52 84,65
+       C 92,52 95,35 92,20
+       C 106,35 112,55 108,72
+       C 116,60 120,44 116,32
+       C 130,48 138,68 136,90
+       C 148,78 154,62 150,48
+       C 162,66 162,88 158,108
+       C 162,116 162,118 162,118
+       C 162,148 138,168 100,168 Z"
+    fill="rgba(255,130,60,0.18)"
+  />
+
+  <!-- Main flame body -->
+  <path
+    d="M 100,165
+       C 65,165 42,146 42,118
+       C 42,93 58,78 68,63
+       C 75,52 77,40 74,30
+       C 85,42 90,56 86,66
+       C 94,54 97,38 94,22
+       C 108,38 113,58 109,74
+       C 117,62 121,46 117,34
+       C 130,50 137,70 135,91
+       C 146,79 151,63 147,50
+       C 160,68 160,90 156,110
+       C 158,118 158,118 158,118
+       C 158,146 135,165 100,165 Z"
+    fill="rgba(255,255,255,0.10)"
+    stroke="rgba(255,255,255,0.55)"
+    stroke-width="2.5"
+    stroke-linejoin="round"
+  />
+
+  <!-- Inner warm flame glow -->
+  <path
+    d="M 100,165
+       C 65,165 42,146 42,118
+       C 42,93 58,78 68,63
+       C 75,52 77,40 74,30
+       C 85,42 90,56 86,66
+       C 94,54 97,38 94,22
+       C 108,38 113,58 109,74
+       C 117,62 121,46 117,34
+       C 130,50 137,70 135,91
+       C 146,79 151,63 147,50
+       C 160,68 160,90 156,110
+       C 158,118 158,118 158,118
+       C 158,146 135,165 100,165 Z"
+    fill="url(#flameInner)"
+  />
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!--  HUMAN FIGURE — arms raised in "Y" / Victory pose  -->
+  <!--  Bold, white, instantly "fitness/yoga" readable     -->
+  <!-- ══════════════════════════════════════════════════ -->
+
+  <!-- Head -->
+  <circle cx="100" cy="72" r="10" fill="white" filter="url(#figureGlow)" opacity="0.97"/>
+
+  <!-- Body / Torso -->
+  <line x1="100" y1="82" x2="100" y2="118"
+        stroke="white" stroke-width="7" stroke-linecap="round"
+        filter="url(#figureGlow)" opacity="0.97"/>
+
+  <!-- LEFT ARM — raised 45° upper-left -->
+  <line x1="100" y1="92" x2="70" y2="68"
+        stroke="white" stroke-width="6" stroke-linecap="round"
+        filter="url(#figureGlow)" opacity="0.97"/>
+
+  <!-- RIGHT ARM — raised 45° upper-right -->
+  <line x1="100" y1="92" x2="130" y2="68"
+        stroke="white" stroke-width="6" stroke-linecap="round"
+        filter="url(#figureGlow)" opacity="0.97"/>
+
+  <!-- LEFT LEG — slight spread left -->
+  <line x1="100" y1="118" x2="80" y2="148"
+        stroke="white" stroke-width="6" stroke-linecap="round"
+        filter="url(#figureGlow)" opacity="0.97"/>
+
+  <!-- RIGHT LEG — slight spread right -->
+  <line x1="100" y1="118" x2="120" y2="148"
+        stroke="white" stroke-width="6" stroke-linecap="round"
+        filter="url(#figureGlow)" opacity="0.97"/>
+
+  <!-- ── GOLD BASE GLOW beneath figure ── -->
+  <ellipse cx="100" cy="156" rx="22" ry="5"
+    fill="url(#goldGrad)" opacity="0.55" filter="url(#goldGlow)"/>
+
+  <!-- ── GOLD SPARKLE — top of flame ── -->
+  <g transform="translate(100,42)">
+    <polygon
+      points="0,-9 2.6,-3.5 8.5,-2.8 4.2,1.4 5.5,8.5 0,5.2 -5.5,8.5 -4.2,1.4 -8.5,-2.8 -2.6,-3.5"
+      fill="url(#goldGrad)" filter="url(#goldGlow)" opacity="0.95"/>
+    <circle cx="0" cy="0" r="2.5" fill="white" opacity="0.9"/>
+  </g>
+
+  <!-- Small symmetry sparkles -->
+  <g transform="translate(45,148)">
+    <polygon points="0,-6 1.7,-2.5 6,-2 3,1.2 4,6.5 0,4 -4,6.5 -3,1.2 -6,-2 -1.7,-2.5"
+      fill="url(#goldGrad)" opacity="0.65"/>
+  </g>
+  <g transform="translate(155,148)">
+    <polygon points="0,-6 1.7,-2.5 6,-2 3,1.2 4,6.5 0,4 -4,6.5 -3,1.2 -6,-2 -1.7,-2.5"
+      fill="url(#goldGrad)" opacity="0.65"/>
+  </g>
+
+</svg>
