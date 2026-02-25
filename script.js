@@ -1813,17 +1813,104 @@ const poseData = {
   },
 };
 
+// ============================================================
+// YouTube URLs for each pose
+// ============================================================
+const poseYoutubeUrls = {
+  "sun-salutation": "https://www.youtube.com/watch?v=73sjOu0g58M",
+  "mountain-climbers": "https://www.youtube.com/watch?v=nmwgirgXLYM",
+  "warrior-2-3": "https://youtu.be/yxNtoOJ9500?si=TrHOs9hdTxgL-RsQ",
+  "goddess-pose": "https://youtu.be/wgXefCprLm0?si=rvl9QKYnbIhRtDdi",
+  "legs-up-wall": "https://youtu.be/do_1LisFah0?si=Uh4oNggj6U7ekpf6",
+  "downward-dog": "https://youtu.be/ayQoxw8sRTk?si=svfcwB_mvan1rnGX",
+  "bridge-pose": "https://youtu.be/XUcAuYd7VU0?si=ZHP3h1b31kICzGre",
+  "mountain-pose": "https://www.youtube.com/watch?v=2HTvZp5rPrg",
+  plank: "https://www.youtube.com/watch?v=ASdvN_XEl_c",
+  "seated-forward-fold": "https://youtu.be/SLIaql7h6RQ?si=NOYtwAvyA83YXZUE",
+  "stress-relief": "https://youtu.be/jsOqcwcy2mI?si=8D6SAydLWqc4BJ_Y",
+  "weight-loss": "https://youtu.be/m756Gz8de4M?si=vR3sugGJSNEF7brb",
+  flexibility: "https://www.youtube.com/watch?v=g_tea8ZNk5A",
+  "core-strength": "https://www.youtube.com/watch?v=DHD1-2P94DI",
+  "heart-health": "https://youtu.be/lISRYHGrKtk?si=10APbi8C9o4dl3Ru",
+  "better-sleep": "https://www.youtube.com/watch?v=v7AYKMP6rOE",
+  "strength-building": "https://youtu.be/WltkvVB_lfM?si=CwlzI8jQgEN4_Cnj",
+  "back-pain": "https://youtu.be/7agiIk9KgyI?si=kPVdiW3KVZkamtJn",
+  "immunity-boost": "https://youtu.be/eQ3opMpEcJ8?si=2FlshGnVLHS8ruUk",
+  "digestive-health": "https://youtu.be/7agiIk9KgyI?si=kPVdiW3KVZkamtJn",
+  "mountain-pose-gen": "https://www.youtube.com/watch?v=2HTvZp5rPrg",
+  "downward-dog-gen": "https://youtu.be/7agiIk9KgyI?si=kPVdiW3KVZkamtJn",
+  "child-pose": "https://youtu.be/nMp3MlTz9fA?si=1cTMO4u1DigfOGAh",
+  "warrior-pose": "https://youtu.be/kkGY3xBnaGc?si=klOzgBOSHh2hoZox",
+  "tree-pose": "https://www.youtube.com/watch?v=wdln9qWYloU",
+  "bridge-pose-gen": "https://youtu.be/XUcAuYd7VU0?si=MT7cCify-S56YCk6",
+  "plank-gen": "https://www.youtube.com/watch?v=ASdvN_XEl_c",
+  "cobra-pose": "https://youtu.be/k48O2CxvZ3o?si=mxPIxVoM4iu6-5XV",
+  "seated-forward-bend-gen": "https://youtu.be/nMp3MlTz9fA?si=1cTMO4u1DigfOGAh",
+  "corpse-pose": "https://youtu.be/do_1LisFah0?si=Uh4oNggj6U7ekpf6",
+  "neck-shoulders": "https://youtu.be/X3-gKPNyrTA?si=g3jaTq2CARoVfgjd",
+  "spine-back": "https://youtu.be/p39GdEUxxAk?si=02Ul_hfW7yIUHcJe",
+  "hips-pelvis": "https://www.youtube.com/watch?v=sTANio_2E0Q",
+  "legs-knees": "https://www.youtube.com/watch?v=qULTwquOuT4",
+  "arms-wrists": "https://youtu.be/X3-gKPNyrTA?si=rOpyuANHccHIF4Z_",
+  "core-abdomen": "https://www.youtube.com/watch?v=DHD1-2P94DI",
+  "chest-lungs": "https://youtu.be/kkGY3xBnaGc?si=klOzgBOSHh2hoZox",
+  "full-body": "https://www.youtube.com/watch?v=v7AYKMP6rOE",
+  "head-brain": "https://youtu.be/m756Gz8de4M?si=vR3sugGJSNEF7brb",
+  "hands-fingers": "https://youtu.be/wgXefCprLm0?si=rvl9QKYnbIhRtDdi",
+  "cat-cow": "https://www.youtube.com/watch?v=kqnua4rHVVA",
+  "cobra-pose-type": "https://www.youtube.com/watch?v=Jo4gV2aLc-I",
+  "child-pose-type": "https://www.youtube.com/watch?v=qZ_KamBATAI",
+  "spine-back-stretch": "https://www.youtube.com/watch?v=4TE_HqLhKVs",
+};
+
+function openYoutubeForPose(poseId) {
+  const url =
+    poseYoutubeUrls[poseId] ||
+    "https://www.youtube.com/results?search_query=" +
+      encodeURIComponent(
+        (poseId || "yoga pose").replace(/-/g, " ") + " yoga tutorial",
+      );
+  window.open(url, "_blank");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const knowMoreBtns = document.querySelectorAll(".btn-know-more");
   const modalElement = document.getElementById("pose-modal");
 
+  // ── Card-level "Start Practice" buttons ──
+  document.querySelectorAll(".btn-practice").forEach((practiceBtn) => {
+    practiceBtn.addEventListener("click", () => {
+      // Find sibling "Know More" button to get the pose ID
+      const parent = practiceBtn.closest(".modal-btns");
+      const knowMoreBtn = parent
+        ? parent.querySelector(".btn-know-more")
+        : null;
+      const poseId = knowMoreBtn
+        ? knowMoreBtn.getAttribute("data-pose-id")
+        : null;
+      openYoutubeForPose(poseId);
+    });
+  });
+
   if (modalElement) {
     const modalInstance = new bootstrap.Modal(modalElement);
+    let currentPoseId = null; // track which pose is open in modal
+
+    // ── Modal "Start Practice" button ──
+    const modalPracticeBtn = modalElement.querySelector(
+      ".btn-practice-trigger",
+    );
+    if (modalPracticeBtn) {
+      modalPracticeBtn.addEventListener("click", () => {
+        openYoutubeForPose(currentPoseId);
+      });
+    }
 
     knowMoreBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         const poseId = btn.getAttribute("data-pose-id");
         const pose = poseData[poseId];
+        currentPoseId = poseId; // update for modal Start Practice button
 
         if (pose) {
           // Populate Modal Content
