@@ -1985,6 +1985,21 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // Meditation CTA: smooth scroll + highlight guided meditation block
+  const meditationCta = document.querySelector(".btn-meditation-cta");
+  const guidedBlock = document.querySelector("#guided-meditation-programs");
+
+  if (meditationCta && guidedBlock) {
+    meditationCta.addEventListener("click", (e) => {
+      e.preventDefault();
+      guidedBlock.scrollIntoView({ behavior: "smooth", block: "start" });
+      guidedBlock.classList.add("section-highlight");
+      setTimeout(() => {
+        guidedBlock.classList.remove("section-highlight");
+      }, 1400);
+    });
+  }
 });
 
 // Navbar Scroll Logic
