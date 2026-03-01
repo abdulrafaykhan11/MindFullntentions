@@ -2000,6 +2000,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1400);
     });
   }
+
+  // Book now buttons scroll to contact
+  const bookButtons = document.querySelectorAll('.btn-book-now');
+  const contactSection = document.querySelector('#contact');
+  if (bookButtons.length && contactSection) {
+    bookButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        contactSection.classList.add('section-highlight');
+        setTimeout(() => {
+          contactSection.classList.remove('section-highlight');
+        }, 1400);
+      });
+    });
+  }
 });
 
 // Navbar Scroll Logic
@@ -2009,5 +2025,14 @@ window.addEventListener("scroll", function () {
     navbar.classList.add("scrolled");
   } else {
     navbar.classList.remove("scrolled");
+  }
+
+  // if mobile menu is open collapse it when the user scrolls
+  const openCollapse = document.querySelector(".navbar-collapse.show");
+  if (openCollapse) {
+    const bsCollapse =
+      bootstrap.Collapse.getInstance(openCollapse) ||
+      new bootstrap.Collapse(openCollapse);
+    bsCollapse.hide();
   }
 });
