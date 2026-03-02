@@ -2162,3 +2162,289 @@ button,
     padding: 70px 6%;
   }
 }
+
+/* ================= PREMIUM CONTACT SECTION ================= */
+.contact-section-premium {
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-info-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: var(--transition-smooth);
+}
+
+.contact-icon-box {
+  width: 54px;
+  height: 54px;
+  background: rgba(206, 4, 4, 0.08);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  transition: var(--transition-smooth);
+}
+
+.contact-info-card:hover .contact-icon-box {
+  background: var(--primary-color);
+  color: white !important;
+  transform: rotate(-10deg) scale(1.1);
+}
+
+.contact-info-card:hover .contact-icon-box i {
+  color: white !important;
+}
+
+.social-circle-link {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: var(--transition-smooth);
+}
+
+.social-circle-link:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-5px);
+}
+
+/* Form Card Styling */
+.contact-form-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.form-floating-premium {
+  position: relative;
+}
+
+.form-floating-premium .form-control,
+.form-floating-premium .form-select {
+  border: none;
+  border-bottom: 2px solid #eee;
+  border-radius: 0;
+  padding: 25px 0 10px 0;
+  background: transparent;
+  box-shadow: none;
+  transition: border-color 0.3s ease;
+  font-weight: 500;
+}
+
+.form-floating-premium label {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  color: #999;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.form-floating-premium .form-control:focus ~ label,
+.form-floating-premium .form-control:not(:placeholder-shown) ~ label,
+.form-floating-premium .form-select:focus ~ label,
+.form-floating-premium .form-select:not([value=""]):valid ~ label {
+  top: 0;
+  font-size: 0.8rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.form-floating-premium .form-control:focus,
+.form-floating-premium .form-control:active,
+.form-floating-premium .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.validation-dot {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #eee;
+  transition: all 0.3s ease;
+}
+
+.form-control.is-valid + label + .validation-dot {
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.form-control.is-invalid + label + .validation-dot {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+/* Form Steps */
+.form-step {
+  display: none;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.5s ease;
+}
+
+.form-step.active-step {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Buttons */
+.btn-next-step,
+.btn-submit-premium {
+  background: linear-gradient(to right, #ce0404, #ff3f0a);
+  color: white;
+  padding: 14px 35px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(206, 4, 4, 0.2);
+  transition: var(--transition-smooth);
+}
+
+.btn-back-step {
+  background: #f8f9fa;
+  color: var(--text-dark);
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: 1px solid #eee;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.btn-next-step:hover,
+.btn-submit-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(206, 4, 4, 0.3);
+  color: white;
+}
+
+/* Success Overlay */
+#form-success-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 10;
+  display: none !important; /* Managed by JS */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#form-success-overlay.show {
+  display: flex !important;
+  opacity: 1;
+}
+
+.success-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2.5rem;
+  box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+}
+
+/* ================= PREMIUM FOOTER ENHANCEMENTS ================= */
+.premium-footer {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #f8fafc;
+  padding: 100px 0 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #ce0404, #ff3f0a, #ce0404);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  color: #ce0404;
+  padding-left: 8px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8fafc;
+  text-decoration: none !important;
+  margin-right: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+  background: #ce0404;
+  color: white;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(206, 4, 4, 0.3);
+}
+
+.footer-heading {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 30px;
+  font-size: 1.25rem;
+}
+
+.footer-contact-item i {
+  color: #ce0404;
+  margin-right: 15px;
+  font-size: 1.1rem;
+}
+
+.footer-bottom {
+  margin-top: 80px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+}

@@ -1853,8 +1853,234 @@
         </div>
       </div>
     </section>
+    <!-- ================= PREMIUM CONTACT SECTION ================= -->
+    <section id="contact" class="contact-section-premium py-5">
+      <div class="container py-5">
+        <div class="row align-items-center g-5">
+          <!-- Left Side: Info & Presence -->
+          <div class="col-lg-5" data-aos-ignore>
+            <div class="contact-info-card p-5 rounded-5 shadow-lg h-100">
+              <span
+                class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill mb-4"
+                >Get In Touch</span
+              >
+              <h2 class="display-4 fw-bold mb-4">
+                Let's Craft Your
+                <span class="text-danger">Zen Journey</span> Together
+              </h2>
+              <p class="text-secondary lead mb-5">
+                Have questions about our yoga sessions or meditation programs?
+                Our team is here to guide you toward ethereal living.
+              </p>
+
+              <div class="contact-details mb-5">
+                <div class="d-flex align-items-center mb-4">
+                  <div class="contact-icon-box me-4">
+                    <i class="fas fa-map-marked-alt text-danger"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-1 fw-bold">Our Sanctuary</h6>
+                    <p class="text-muted mb-0">
+                      123 Serenity Way, Wellness District, NY
+                    </p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-4">
+                  <div class="contact-icon-box me-4">
+                    <i class="fas fa-envelope-open-text text-danger"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-1 fw-bold">Email Us</h6>
+                    <p class="text-muted mb-0">hello@mindfulintentions.com</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="contact-icon-box me-4">
+                    <i class="fas fa-phone-alt text-danger"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-1 fw-bold">Call Directly</h6>
+                    <p class="text-muted mb-0">+1 234 567 8900</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="social-connect mt-auto">
+                <h6 class="fw-bold mb-3">Follow our flow</h6>
+                <div class="d-flex gap-3">
+                  <a href="#" class="social-circle-link"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                  <a href="#" class="social-circle-link"
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <a href="#" class="social-circle-link"
+                    ><i class="fab fa-youtube"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Side: Multi-Step Form -->
+          <div class="col-lg-7">
+            <div
+              class="contact-form-card p-5 rounded-5 shadow-lg position-relative overflow-hidden"
+            >
+              <!-- Form Progress Header -->
+              <div class="form-progress-header mb-5">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <span class="step-indicator fw-bold text-danger"
+                    >Step <span id="current-step-num">1</span> of 2</span
+                  >
+                  <span id="step-title" class="text-muted small fw-medium"
+                    >Personal Details</span
+                  >
+                </div>
+                <div
+                  class="progress"
+                  style="height: 6px; background: rgba(0, 0, 0, 0.05)"
+                >
+                  <div
+                    id="form-progress-bar"
+                    class="progress-bar bg-danger"
+                    role="progressbar"
+                    style="width: 50%; transition: width 0.5s ease"
+                  ></div>
+                </div>
+              </div>
+
+              <form id="premium-contact-form" autocomplete="off">
+                <!-- Step 1: Personal Info -->
+                <div id="step-1" class="form-step active-step">
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <div class="form-floating-premium">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="form-name"
+                          placeholder="Full Name"
+                          required
+                        />
+                        <label for="form-name">Full Name</label>
+                        <div class="validation-dot"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating-premium">
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="form-email"
+                          placeholder="Email Address"
+                          required
+                        />
+                        <label for="form-email">Email Address</label>
+                        <div class="validation-dot"></div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating-premium">
+                        <input
+                          type="tel"
+                          class="form-control"
+                          id="form-phone"
+                          placeholder="Phone Number"
+                          required
+                        />
+                        <label for="form-phone">Phone Number</label>
+                        <div class="validation-dot"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-5 text-end">
+                    <button
+                      type="button"
+                      class="btn btn-next-step"
+                      onclick="nextStep()"
+                    >
+                      Next Step <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Step 2: Message & Interest -->
+                <div id="step-2" class="form-step">
+                  <div class="row g-4">
+                    <div class="col-12">
+                      <div class="form-floating-premium">
+                        <select class="form-select" id="form-interest">
+                          <option value="yoga">Yoga Sessions</option>
+                          <option value="meditation">
+                            Meditation Retreats
+                          </option>
+                          <option value="combined">Combined Wellness</option>
+                          <option value="other">Other Inquiries</option>
+                        </select>
+                        <label for="form-interest">I'm interested in...</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating-premium">
+                        <textarea
+                          class="form-control"
+                          id="form-message"
+                          placeholder="Your Message"
+                          style="height: 150px"
+                          required
+                        ></textarea>
+                        <label for="form-message">Your Message</label>
+                        <div class="validation-dot"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-5 d-flex justify-content-between">
+                    <button
+                      type="button"
+                      class="btn btn-back-step"
+                      onclick="prevStep()"
+                    >
+                      <i class="fas fa-arrow-left me-2"></i> Back
+                    </button>
+                    <button type="submit" class="btn btn-submit-premium">
+                      Send Message <i class="fas fa-paper-plane ms-2"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Success Overlay (Hidden by default) -->
+              <div
+                id="form-success-overlay"
+                class="rounded-5 d-flex flex-column align-items-center justify-content-center text-center p-5"
+              >
+                <div class="success-icon-wrapper mb-4">
+                  <i class="fas fa-check"></i>
+                </div>
+                <h3 class="fw-bold mb-3">Message Received!</h3>
+                <p class="text-secondary">
+                  Thank you for reaching out. Our team will connect with your
+                  soul shortly.
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger mt-4 rounded-pill px-4"
+                  onclick="resetForm()"
+                >
+                  Send Another
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= PREMIUM FOOTER ================= -->
-    <footer id="contact" class="premium-footer">
+    <footer class="premium-footer">
       <div class="container">
         <div class="row">
           <!-- Brand Column -->

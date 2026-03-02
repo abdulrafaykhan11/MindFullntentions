@@ -2108,10 +2108,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 5. Magnetic Button Effect
-    const buttons = document.querySelectorAll(
-      ".btn-luxury, .btn-book-now, .navbar-cta",
+    const magneticButtons = document.querySelectorAll(
+      ".btn-luxury, .btn-book-now, .navbar-cta, .btn-next-step, .btn-submit-premium",
     );
-    buttons.forEach((btn) => {
+    magneticButtons.forEach((btn) => {
       btn.addEventListener("mousemove", (e) => {
         const rect = btn.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
@@ -2135,6 +2135,114 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // ================= PREMIUM CONTACT FORM LOGIC =================
+  const form = document.getElementById("premium-contact-form");
+  const steps = document.querySelectorAll(".form-step");
+  const progress = document.getElementById("form-progress-bar");
+  const stepNum = document.getElementById("current-step-num");
+  const stepTitle = document.getElementById("step-title");
+  const successOverlay = document.getElementById("form-success-overlay");
+
+  window.nextStep = () => {
+    if (validateStep(1)) {
+      steps[0].classList.remove("active-step");
+      steps[1].classList.add("active-step");
+      progress.style.width = "100%";
+      stepNum.innerText = "2";
+      stepTitle.innerText = "Message Details";
+
+      gsap.from("#step-2", {
+        x: 50,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    }
+  };
+
+  window.prevStep = () => {
+    steps[1].classList.remove("active-step");
+    steps[0].classList.add("active-step");
+    progress.style.width = "50%";
+    stepNum.innerText = "1";
+    stepTitle.innerText = "Personal Details";
+
+    gsap.from("#step-1", {
+      x: -50,
+      opacity: 0,
+      duration: 0.6,
+      ease: "power2.out",
+    });
+  };
+
+  window.resetForm = () => {
+    form.reset();
+    document.querySelectorAll(".form-control").forEach((el) => {
+      el.classList.remove("is-valid", "is-invalid");
+    });
+    successOverlay.classList.remove("show");
+    prevStep();
+  };
+
+  const validateStep = (step) => {
+    let isValid = true;
+    const inputs = steps[step - 1].querySelectorAll("[required]");
+    inputs.forEach((input) => {
+      if (!validateInput(input)) isValid = false;
+    });
+    return isValid;
+  };
+
+  const validateInput = (input) => {
+    let valid = true;
+    if (input.type === "email") {
+      valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+    } else if (input.type === "tel") {
+      valid = /^\+?[\d\s-]{10,}$/.test(input.value);
+    } else {
+      valid = input.value.trim().length > 2;
+    }
+
+    if (valid) {
+      input.classList.remove("is-invalid");
+      input.classList.add("is-valid");
+    } else {
+      input.classList.remove("is-valid");
+      input.classList.add("is-invalid");
+    }
+    return valid;
+  };
+
+  // Live Validation
+  form.querySelectorAll("input, textarea").forEach((input) => {
+    input.addEventListener("input", () => validateInput(input));
+  });
+
+  // Form Submission
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (validateStep(2)) {
+      const submitBtn = form.querySelector(".btn-submit-premium");
+      const originalText = submitBtn.innerHTML;
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Sending...`;
+
+      setTimeout(() => {
+        successOverlay.classList.add("show");
+        gsap.from(".success-icon-wrapper", {
+          scale: 0,
+          rotation: -180,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+        });
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }, 1500);
+    }
+  });
 });
 
 // Navbar Scroll Logic
