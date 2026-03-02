@@ -2401,11 +2401,12 @@ button,
 
 /* ================= PREMIUM FOOTER ENHANCEMENTS ================= */
 .premium-footer {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: #f8fafc;
+  background: #fdfdfd;
+  color: var(--text-dark);
   padding: 100px 0 40px;
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .premium-footer::before {
@@ -2428,7 +2429,7 @@ button,
 }
 
 .footer-links a {
-  color: #94a3b8;
+  color: var(--text-muted);
   text-decoration: none !important;
   transition: all 0.3s ease;
   font-weight: 500;
@@ -2443,37 +2444,48 @@ button,
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
+  background: white;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #f8fafc;
+  color: var(--text-dark);
   text-decoration: none !important;
   margin-right: 12px;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
 
 .social-icon:hover {
   background: #ce0404;
   color: white;
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(206, 4, 4, 0.3);
+  box-shadow: 0 10px 20px rgba(206, 4, 4, 0.2);
+  border-color: transparent;
 }
 
 .footer-heading {
-  color: white;
+  color: var(--text-dark);
   font-weight: 700;
   margin-bottom: 30px;
   font-size: 1.25rem;
 }
 
 .footer-contact-link {
-  color: #94a3b8;
+  color: var(--text-muted);
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .footer-contact-link:hover {
-  color: white;
+  color: #ce0404;
+}
+
+.footer-bottom {
+  margin-top: 80px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
 }
