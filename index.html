@@ -26,7 +26,7 @@
       <div
         class="container-fluid d-flex justify-content-between align-items-center"
       >
-        <a href="#" class="navbar-brand-wrapper">
+        <a href="#" class="navbar-brand-wrapper" data-aos="fade-right">
           <div class="logo-container">
             <img src="logo.svg" alt="MindfulIntentions Logo" class="logo" />
           </div>
@@ -68,6 +68,7 @@
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          data-aos="fade-left"
         >
           <span class="fas fa-bars"></span>
         </button>
@@ -1111,7 +1112,7 @@
         </div>
 
         <div class="row g-4 mb-5">
-          <div class="col-md-4">
+          <div class="col-md-4 d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="course-card">
               <span class="course-tag">6 Weeks</span>
               <h3>Vital Flow Foundation</h3>
@@ -1128,7 +1129,7 @@
               <a href="#" class="btn btn-book-now mt-3">Book Now</a>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 d-flex" data-aos="fade-up" data-aos-delay="200">
             <div class="course-card">
               <span class="course-tag">4 Weeks</span>
               <h3>Cardio Mind Reset</h3>
@@ -1144,7 +1145,7 @@
               <a href="#" class="btn btn-book-now mt-3">Book Now</a>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 d-flex" data-aos="fade-up" data-aos-delay="300">
             <div class="course-card">
               <span class="course-tag">Drop‑In</span>
               <h3>Weekend Reset Studio</h3>
@@ -1163,7 +1164,7 @@
         </div>
         <!-- extra row of courses -->
         <div class="row g-4 mb-5">
-          <div class="col-md-4">
+          <div class="col-md-4 d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="course-card">
               <span class="course-tag">8 Weeks</span>
               <h3>Advanced Flex Flow</h3>
@@ -1179,7 +1180,7 @@
               <a href="#" class="btn btn-book-now mt-3">Book Now</a>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="course-card">
               <span class="course-tag">5 Weeks</span>
               <h3>Mindful Strength</h3>
@@ -1195,7 +1196,7 @@
               <a href="#" class="btn btn-book-now mt-3">Book Now</a>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 d-flex" data-aos="fade-up" data-aos-delay="200">
             <div class="course-card">
               <span class="course-tag">12 Weeks</span>
               <h3>Holistic Recovery</h3>
@@ -1933,6 +1934,11 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="script.js"></script>
   <script>
-    AOS.init();
+    AOS.init({
+      duration: 700,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
   </script>
 </html>
