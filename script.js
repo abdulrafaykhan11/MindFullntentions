@@ -2019,6 +2019,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Books filter (All / Yoga / Fitness / Breathwork)
+  const filterButtons = document.querySelectorAll(".book-filter-btn");
+  const bookColumns = document.querySelectorAll("[data-book-category]");
+  if (filterButtons.length && bookColumns.length) {
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const selected = btn.getAttribute("data-book-filter");
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        bookColumns.forEach((col) => {
+          const category = col.getAttribute("data-book-category");
+          const show = selected === "all" || category === selected;
+          col.classList.toggle("book-hidden", !show);
+        });
+      });
+    });
+  }
+
   // ================= PREMIUM GSAP ANIMATIONS =================
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     // Register ScrollTrigger

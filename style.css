@@ -702,11 +702,21 @@ img {
 .nav-link:hover,
 .nav-link.active {
   color: var(--primary-color) !important;
+  background: rgba(206, 4, 4, 0.1);
+  border-radius: 999px;
+  transform: translateY(-2px);
 }
 
 /* make links darker when navbar has scrolled background */
 .navbar.scrolled .nav-link {
   color: var(--text-dark) !important;
+}
+
+.navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link.active {
+  color: var(--primary-color) !important;
+  background: rgba(206, 4, 4, 0.12);
+  border-radius: 999px;
 }
 
 .navbar-cta {
@@ -2042,8 +2052,48 @@ button,
   font-size: 1.03rem;
 }
 
+.books-filter {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.book-filter-btn {
+  border: 1px solid rgba(206, 4, 4, 0.24);
+  background: rgba(255, 255, 255, 0.82);
+  color: #911111;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.book-filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(220, 38, 38, 0.2);
+}
+
+.book-filter-btn.active {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(90deg, #ba0303, #f04f10);
+  box-shadow: 0 10px 24px rgba(220, 38, 38, 0.33);
+}
+
 .books-grid {
   margin-top: 16px;
+}
+
+.book-hidden {
+  display: none !important;
 }
 
 .book-card {
@@ -2187,6 +2237,11 @@ button,
 @media (max-width: 768px) {
   .books-section {
     padding: 70px 6%;
+  }
+
+  .books-filter {
+    gap: 8px;
+    margin-top: 18px;
   }
 
   .book-image {
