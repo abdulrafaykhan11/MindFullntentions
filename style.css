@@ -2012,13 +2012,17 @@ button,
 
 /* ================= BOOKS SECTION ================= */
 .books-section {
-  padding: 90px 8%;
-  background: radial-gradient(
-    circle at top right,
-    #fff5f1,
-    #f8fafc 45%,
-    #ffffff
-  );
+  position: relative;
+  padding: 110px 8%;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(206, 4, 4, 0.08), transparent 40%),
+    radial-gradient(
+      circle at 88% 6%,
+      rgba(255, 106, 0, 0.08),
+      transparent 38%
+    ),
+    linear-gradient(180deg, #fff7f4 0%, #fffefe 48%, #fff3ee 100%);
+  overflow: hidden;
 }
 
 .books-title {
@@ -2034,132 +2038,159 @@ button,
 .books-intro {
   max-width: 620px;
   margin: 0 auto;
-  color: var(--text-muted);
+  color: #5b6370;
+  font-size: 1.03rem;
 }
 
 .books-grid {
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .book-card {
-  background: #ffffff;
-  border-radius: 22px;
-  padding: 26px 22px 24px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-  border: 1px solid rgba(15, 23, 42, 0.04);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), #ffffff);
+  border-radius: 26px;
+  padding: 24px 22px 22px;
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.12),
+    0 2px 0 rgba(255, 255, 255, 0.95) inset;
+  border: 1px solid rgba(255, 255, 255, 0.75);
   height: 100%;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease,
-    border-color 0.35s ease;
+    transform 0.32s ease,
+    box-shadow 0.32s ease,
+    border-color 0.32s ease;
+}
+
+.book-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.38),
+    transparent 35%,
+    transparent 65%,
+    rgba(255, 255, 255, 0.3)
+  );
+  pointer-events: none;
+  z-index: -1;
 }
 
 .book-card-featured {
-  background: radial-gradient(circle at top left, #fee2e2, #ffffff);
-  border-color: rgba(220, 38, 38, 0.3);
+  background: linear-gradient(145deg, #fff3f0, #ffffff 55%);
+  border-color: rgba(220, 38, 38, 0.25);
 }
 
 .book-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.18);
-  border-color: rgba(206, 4, 4, 0.28);
+  transform: translateY(-12px);
+  box-shadow:
+    0 28px 60px rgba(15, 23, 42, 0.16),
+    0 8px 24px rgba(206, 4, 4, 0.15);
+  border-color: rgba(206, 4, 4, 0.22);
 }
 
 .book-image {
   width: 100%;
-  height: 230px;
-  object-fit: cover;
+  height: 320px;
+  object-fit: contain;
   border-radius: 18px;
-  margin-bottom: 12px;
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.22);
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, #fff, #f6f7fb);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+  padding: 10px;
 }
 
 .book-ribbon {
   position: absolute;
-  top: 18px;
-  right: -40px;
-  background: linear-gradient(to right, #ce0404, #ff3f0a);
+  top: 16px;
+  right: -36px;
+  background: linear-gradient(to right, #c90303, #ef5d13);
   color: #ffffff;
-  padding: 4px 50px;
-  font-size: 0.7rem;
+  padding: 5px 46px;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 1.4px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
   transform: rotate(35deg);
-  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
-}
-
-.book-price {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  background: rgba(15, 23, 42, 0.92);
-  color: #f9fafb;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  border-radius: 999px;
-  font-weight: 600;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.5);
+  box-shadow: 0 10px 24px rgba(220, 38, 38, 0.34);
 }
 
 .book-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 6px;
+  font-size: 1.17rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+  color: #111827;
 }
 
 .book-author {
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin-bottom: 10px;
+  font-size: 0.88rem;
+  color: #c90303;
+  margin-bottom: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
 .book-desc {
   font-size: 0.9rem;
-  color: #4b5563;
-  margin-bottom: 10px;
+  color: #374151;
+  margin-bottom: 12px;
+  min-height: 66px;
 }
 
 .book-points {
-  padding-left: 18px;
+  padding-left: 17px;
   margin: 0;
 }
 
 .book-points li {
-  font-size: 0.85rem;
-  color: #374151;
-  margin-bottom: 5px;
+  font-size: 0.84rem;
+  color: #323b49;
+  margin-bottom: 6px;
 }
 
 .book-actions {
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .btn-book-buy {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 9px 20px;
+  width: 100%;
+  padding: 11px 18px;
   border-radius: 999px;
-  background: linear-gradient(to right, #ce0404, #ff3f0a);
+  background: linear-gradient(90deg, #ba0303, #f04f10);
   color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.87rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
   text-decoration: none;
-  box-shadow: 0 12px 24px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 12px 24px rgba(220, 38, 38, 0.33);
   border: none;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
 }
 
 .btn-book-buy:hover {
   color: #ffffff;
-  filter: brightness(1.05);
-  transform: translateY(-1px);
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(220, 38, 38, 0.42);
 }
 
 @media (max-width: 768px) {
   .books-section {
     padding: 70px 6%;
+  }
+
+  .book-image {
+    height: 280px;
   }
 }
 
