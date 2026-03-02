@@ -14,7 +14,9 @@ function showTab(tabId, el) {
 
   el.classList.add("active");
 
-  AOS.refresh();
+  if (window.gsap && window.ScrollTrigger) {
+    ScrollTrigger.refresh();
+  }
 }
 
 // Dynamic Modal Logic
@@ -2002,17 +2004,134 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Book now buttons scroll to contact
-  const bookButtons = document.querySelectorAll('.btn-book-now');
-  const contactSection = document.querySelector('#contact');
+  const bookButtons = document.querySelectorAll(".btn-book-now");
+  const contactSection = document.querySelector("#contact");
   if (bookButtons.length && contactSection) {
-    bookButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
+    bookButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
-        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        contactSection.classList.add('section-highlight');
+        contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        contactSection.classList.add("section-highlight");
         setTimeout(() => {
-          contactSection.classList.remove('section-highlight');
+          contactSection.classList.remove("section-highlight");
         }, 1400);
+      });
+    });
+  }
+
+  // ================= PREMIUM GSAP ANIMATIONS =================
+  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Premium Staggered Animation for Cards
+    const animateCards = (selector) => {
+      const els = document.querySelectorAll(selector);
+      els.forEach((el, index) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          delay: (index % 3) * 0.1,
+          ease: "power2.out",
+          onComplete: () => {
+            gsap.set(el, { clearProps: "all" });
+          },
+        });
+      });
+    };
+
+    animateCards(".pose-card");
+    animateCards(".course-card");
+    animateCards(".meditation-card");
+    animateCards(".book-card");
+
+    // 2. Smooth Reveal for Headings
+    const headings = document.querySelectorAll(
+      ".display-5, .courses-title, .meditation-title, .about-title-premium",
+    );
+    headings.forEach((heading) => {
+      gsap.from(heading, {
+        scrollTrigger: {
+          trigger: heading,
+          start: "top 95%",
+        },
+        y: 20,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        onComplete: () => {
+          gsap.set(heading, { clearProps: "all" });
+        },
+      });
+    });
+
+    // 3. Floating Animation for Hero
+    if (document.querySelector(".hero-img")) {
+      gsap.to(".hero-img", {
+        y: 20,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    }
+
+    if (document.querySelectorAll(".hero-badge").length) {
+      gsap.to(".hero-badge", {
+        y: -10,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.4,
+      });
+    }
+
+    // 4. Parallax Effect
+    if (document.querySelector(".hero-bg-wrapper img")) {
+      gsap.to(".hero-bg-wrapper img", {
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+        y: 120,
+        ease: "none",
+      });
+    }
+
+    // 5. Magnetic Button Effect
+    const buttons = document.querySelectorAll(
+      ".btn-luxury, .btn-book-now, .navbar-cta",
+    );
+    buttons.forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(btn, {
+          x: x * 0.35,
+          y: y * 0.35,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        gsap.to(btn, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.3)",
+        });
       });
     });
   }
@@ -2027,7 +2146,6 @@ window.addEventListener("scroll", function () {
     navbar.classList.remove("scrolled");
   }
 
-  // if mobile menu is open collapse it when the user scrolls
   const openCollapse = document.querySelector(".navbar-collapse.show");
   if (openCollapse) {
     const bsCollapse =
