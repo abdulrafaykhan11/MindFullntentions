@@ -2019,6 +2019,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Navbar active state by scroll position
+  const navLinks = Array.from(document.querySelectorAll(".navbar .nav-link"));
+  const homeNavLink = navLinks.find((link) => link.getAttribute("href") === "#");
+  const sectionNavPairs = navLinks
+    .map((link) => {
+      const href = link.getAttribute("href") || "";
+      if (!href.startsWith("#") || href === "#") return null;
+      const section = document.querySelector(href);
+      return section ? { link, section } : null;
+    })
+    .filter(Boolean);
+
+  const updateNavbarActiveState = () => {
+    const scrollMarker = window.scrollY + 140;
+    let activeLink = homeNavLink || null;
+
+    sectionNavPairs.forEach(({ link, section }) => {
+      const sectionTop = section.offsetTop;
+      const sectionBottom = sectionTop + section.offsetHeight;
+      if (scrollMarker >= sectionTop && scrollMarker < sectionBottom) {
+        activeLink = link;
+      }
+    });
+
+    navLinks.forEach((link) => link.classList.remove("active"));
+    if (activeLink) activeLink.classList.add("active");
+  };
+
+  updateNavbarActiveState();
+  window.addEventListener("scroll", updateNavbarActiveState, { passive: true });
+  window.addEventListener("resize", updateNavbarActiveState);
+
   // Books filter (All / Yoga / Fitness / Breathwork)
   const filterButtons = document.querySelectorAll(".book-filter-btn");
   const bookColumns = document.querySelectorAll("[data-book-category]");
