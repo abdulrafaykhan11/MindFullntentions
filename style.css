@@ -2636,6 +2636,16 @@ button,
   box-shadow: 0 0 0 4px rgba(201, 3, 3, 0.1);
 }
 
+.booking-input.is-valid {
+  border-color: #16a34a !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.14);
+}
+
+.booking-input.is-invalid {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.14);
+}
+
 .booking-form-actions {
   margin-top: 26px;
   display: flex;

@@ -2449,6 +2449,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
+    const hasMinimumLetters = (text, minLetters) =>
+      (text.match(/[A-Za-z]/g) || []).length >= minLetters;
+
     const validateField = (field) => {
       if (!field) return true;
       const value = (field.value || "").trim();
@@ -2463,7 +2466,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (valid && field.type === "tel") {
-        valid = /^\+?[\d\s()-]{10,}$/.test(value);
+        valid = /^\+?[0-9][\d\s()-]{9,14}$/.test(value);
       }
 
       if (valid && field.type === "number") {
@@ -2475,6 +2478,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (valid && field.type === "date" && field.min) {
         valid = value >= field.min;
+      }
+
+      if (valid && (field.id === "booking-name" || field.name === "fullName")) {
+        valid = hasMinimumLetters(value, 3);
+      }
+
+      if (valid && field.id === "booking-city") {
+        valid = hasMinimumLetters(value, 2);
+      }
+
+      if (valid && field.id === "booking-note" && value.length > 0) {
+        valid = value.length >= 5;
       }
 
       field.classList.toggle("is-valid", valid && value.length > 0);
@@ -2600,12 +2615,16 @@ document.addEventListener("DOMContentLoaded", () => {
       categorySelect.addEventListener("change", () => {
         updateTrackOptions(categorySelect.value);
         validateField(categorySelect);
+        if (trackSelect) {
+          trackSelect.classList.remove("is-valid", "is-invalid");
+        }
       });
     }
 
     bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
-      const eventName = field.tagName === "SELECT" ? "change" : "input";
-      field.addEventListener(eventName, () => validateField(field));
+      field.addEventListener("input", () => validateField(field));
+      field.addEventListener("change", () => validateField(field));
+      field.addEventListener("blur", () => validateField(field));
     });
 
     if (bookingNextBtn) {
@@ -2670,13 +2689,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const successOverlay = document.getElementById("form-success-overlay");
 
     const validateSuggestionInput = (input) => {
+      const value = input.value.trim();
       let valid = true;
       if (input.type === "email") {
-        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
       } else if (input.type === "tel") {
-        valid = /^\+?[\d\s()-]{10,}$/.test(input.value.trim());
+        valid = /^\+?[0-9][\d\s()-]{9,14}$/.test(value);
+      } else if (input.id === "form-name") {
+        valid = (value.match(/[A-Za-z]/g) || []).length >= 3;
+      } else if (input.id === "form-message") {
+        valid = value.length >= 10;
       } else {
-        valid = input.value.trim().length > 2;
+        valid = value.length > 2;
       }
 
       input.classList.toggle("is-valid", valid);
