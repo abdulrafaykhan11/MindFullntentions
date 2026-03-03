@@ -2073,6 +2073,181 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ================= 3D UI ENHANCEMENTS =================
+  const scrollProgress = document.getElementById("scroll-progress");
+  const navbar = document.querySelector(".navbar");
+
+  const updateScrollProgress = () => {
+    if (!scrollProgress) return;
+    const doc = document.documentElement;
+    const maxScroll = doc.scrollHeight - doc.clientHeight;
+    const ratio = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+    scrollProgress.style.width = `${Math.min(Math.max(ratio, 0), 100)}%`;
+  };
+
+  updateScrollProgress();
+  window.addEventListener("scroll", updateScrollProgress, { passive: true });
+  window.addEventListener("resize", updateScrollProgress);
+
+  const revealTargets = document.querySelectorAll(
+    ".about-block, .courses-section .row, .meditation-section .row, .books-section .books-grid, .testimonials-section .row, .booking-section .row, .contact-section-premium .row",
+  );
+
+  if (revealTargets.length) {
+    revealTargets.forEach((el) => el.classList.add("section-3d-reveal"));
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          });
+        },
+        {
+          threshold: 0.15,
+          rootMargin: "0px 0px -8% 0px",
+        },
+      );
+
+      revealTargets.forEach((el) => revealObserver.observe(el));
+
+      // Safety net: if any block misses observer trigger, show it anyway.
+      setTimeout(() => {
+        revealTargets.forEach((el) => el.classList.add("in-view"));
+      }, 1200);
+    } else {
+      revealTargets.forEach((el) => el.classList.add("in-view"));
+    }
+  }
+
+  const tiltTargets = document.querySelectorAll(
+    ".pose-card, .course-card, .meditation-card, .book-card, .testimonial-card, .booking-info-panel, .booking-form-panel",
+  );
+
+  tiltTargets.forEach((card) => {
+    card.classList.add("card-lift-3d");
+
+    card.addEventListener("mousemove", (e) => {
+      if (window.innerWidth < 992) return;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = (y / rect.height - 0.5) * -8;
+      const ry = (x / rect.width - 0.5) * 10;
+      card.style.transform = `perspective(1000px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+
+  const heroSection = document.querySelector(".hero");
+  const heroContent = document.querySelector(".hero-content-premium");
+  const heroShapes = document.querySelectorAll(".hero-shape");
+
+  if (heroSection && heroContent && heroShapes.length) {
+    heroSection.addEventListener("mousemove", (e) => {
+      if (window.innerWidth < 992) return;
+      const rect = heroSection.getBoundingClientRect();
+      const dx = (e.clientX - rect.left) / rect.width - 0.5;
+      const dy = (e.clientY - rect.top) / rect.height - 0.5;
+
+      heroContent.style.transform = `perspective(1200px) rotateX(${(-dy * 6).toFixed(2)}deg) rotateY(${(dx * 8).toFixed(2)}deg)`;
+
+      heroShapes.forEach((shape, idx) => {
+        const depth = (idx + 1) * 10;
+        shape.style.transform = `translate3d(${(dx * depth).toFixed(2)}px, ${(dy * depth).toFixed(2)}px, 0)`;
+      });
+    });
+
+    heroSection.addEventListener("mouseleave", () => {
+      heroContent.style.transform = "";
+      heroShapes.forEach((shape) => {
+        shape.style.transform = "";
+      });
+    });
+  }
+
+  // ================= COUNTER-UP (TESTIMONIAL STATS) =================
+  const counterEls = document.querySelectorAll(".counter-value");
+  if (counterEls.length) {
+    const formatCounter = (value, decimals) => {
+      if (decimals > 0) return value.toFixed(decimals);
+      return Math.round(value).toLocaleString();
+    };
+
+    const runCounter = (el) => {
+      if (el.dataset.counted === "true") return;
+      el.dataset.counted = "true";
+
+      const target = Number(el.dataset.counterTarget || 0);
+      const decimals = Number(el.dataset.counterDecimals || 0);
+      const suffix = el.dataset.counterSuffix || "";
+      const duration = 1400;
+      const start = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        el.textContent = `${formatCounter(value, decimals)}${suffix}`;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const counterObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            runCounter(entry.target);
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.5 },
+      );
+      counterEls.forEach((el) => counterObserver.observe(el));
+    } else {
+      counterEls.forEach((el) => runCounter(el));
+    }
+  }
+
+  // ================= IMAGE INTERSECTION OBSERVER =================
+  const observedImages = document.querySelectorAll(
+    "img:not(.logo):not(.footer-logo):not(.hero-img)",
+  );
+
+  if (observedImages.length) {
+    const showImage = (img) => img.classList.add("in-view");
+
+    observedImages.forEach((img) => {
+      img.classList.add("io-image-reveal");
+      if (!img.getAttribute("loading")) img.setAttribute("loading", "lazy");
+      if (!img.getAttribute("decoding")) img.setAttribute("decoding", "async");
+    });
+
+    if ("IntersectionObserver" in window) {
+      const imageObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            showImage(entry.target);
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+      );
+
+      observedImages.forEach((img) => imageObserver.observe(img));
+    } else {
+      observedImages.forEach((img) => showImage(img));
+    }
+  }
+
   // ================= PREMIUM GSAP ANIMATIONS =================
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     // Register ScrollTrigger
@@ -2560,11 +2735,23 @@ document.addEventListener("DOMContentLoaded", () => {
 // Navbar Scroll Logic
 window.addEventListener("scroll", function () {
   const navbar = document.querySelector(".navbar");
+  if (!navbar) return;
+  const currentY = window.scrollY;
+  const previousY = Number(document.body.dataset.lastScrollY || 0);
+  const menuOpen = Boolean(document.querySelector(".navbar-collapse.show"));
+
   if (window.scrollY > 50) {
     navbar.classList.add("scrolled");
   } else {
     navbar.classList.remove("scrolled");
   }
+
+  if (!menuOpen && currentY > previousY && currentY > 180) {
+    navbar.classList.add("nav-hidden");
+  } else {
+    navbar.classList.remove("nav-hidden");
+  }
+  document.body.dataset.lastScrollY = String(currentY);
 
   const openCollapse = document.querySelector(".navbar-collapse.show");
   if (openCollapse) {
