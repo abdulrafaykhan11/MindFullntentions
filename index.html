@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -60,7 +60,7 @@
         </div>
 
         <div class="d-none d-lg-block">
-          <a href="#booking" class="btn navbar-cta">Embark Now</a>
+          <a href="#contact" class="btn navbar-cta">Suggestions</a>
         </div>
 
         <button
@@ -1851,11 +1851,421 @@
         </div>
       </div>
     </section>
+    <!-- ================= PREMIUM BOOKING SECTION ================= -->
+    <section id="booking" class="booking-section py-5">
+      <div class="container py-5">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-5">
+            <aside class="booking-info-panel h-100">
+              <span class="booking-chip">Priority Booking</span>
+              <h2 class="booking-title">
+                Build Your <span>Aerobics Plan</span> and Lock Your Slot
+              </h2>
+              <p class="booking-intro">
+                Select your practice category, choose your preferred track, and
+                review a real appointment invoice before final confirmation.
+              </p>
+              <ul class="booking-benefits">
+                <li>
+                  <i class="fas fa-check-circle"></i> Yoga poses based guided
+                  routines
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Aerobics and fitness
+                  coaching plans
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Meditation and breathwork
+                  sessions
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Live online or in-person
+                  booking
+                </li>
+              </ul>
+              <div class="booking-contact-list">
+                <a href="mailto:hello@mindfulintentions.com" class="booking-contact-link">
+                  <i class="fas fa-envelope"></i> hello@mindfulintentions.com
+                </a>
+                <a href="tel:+12345678900" class="booking-contact-link">
+                  <i class="fas fa-phone"></i> +1 234 567 8900
+                </a>
+                <a
+                  href="https://maps.google.com/?q=123+Serenity+Way,+Wellness+District,+NY"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="booking-contact-link"
+                >
+                  <i class="fas fa-location-dot"></i> 123 Serenity Way,
+                  Wellness District, NY
+                </a>
+              </div>
+            </aside>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="booking-form-panel">
+              <div class="booking-progress-head">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="booking-step-text"
+                    >Step <span id="booking-step-current">1</span> of 3</span
+                  >
+                  <span id="booking-step-label">Client Profile</span>
+                </div>
+                <div class="booking-progress-track">
+                  <div
+                    id="booking-progress-fill"
+                    class="booking-progress-fill"
+                    style="width: 33.33%"
+                  ></div>
+                </div>
+              </div>
+
+              <form id="booking-form" novalidate>
+                <div class="booking-step active" data-step="1">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-name"
+                        >Full Name</label
+                      >
+                      <input
+                        id="booking-name"
+                        name="fullName"
+                        class="form-control booking-input"
+                        type="text"
+                        placeholder="Enter full name"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-email"
+                        >Email Address</label
+                      >
+                      <input
+                        id="booking-email"
+                        name="email"
+                        class="form-control booking-input"
+                        type="email"
+                        placeholder="you@example.com"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-phone"
+                        >Phone Number</label
+                      >
+                      <input
+                        id="booking-phone"
+                        name="phone"
+                        class="form-control booking-input"
+                        type="tel"
+                        placeholder="+1 234 567 8900"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="booking-label" for="booking-age">Age</label>
+                      <input
+                        id="booking-age"
+                        name="age"
+                        class="form-control booking-input"
+                        type="number"
+                        min="12"
+                        max="80"
+                        placeholder="25"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="booking-label" for="booking-city"
+                        >City</label
+                      >
+                      <input
+                        id="booking-city"
+                        name="city"
+                        class="form-control booking-input"
+                        type="text"
+                        placeholder="New York"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="booking-step" data-step="2">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-category"
+                        >Service Category</label
+                      >
+                      <select
+                        id="booking-category"
+                        name="category"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select category</option>
+                        <option value="poses">Yoga Poses Program</option>
+                        <option value="courses">Aerobics Course</option>
+                        <option value="meditation">
+                          Meditation Program
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-track"
+                        >Program / Track</label
+                      >
+                      <select
+                        id="booking-track"
+                        name="track"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select track</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-mode"
+                        >Session Mode</label
+                      >
+                      <select
+                        id="booking-mode"
+                        name="mode"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select mode</option>
+                        <option value="Online Live">Online Live</option>
+                        <option value="In-Person Studio">
+                          In-Person Studio
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-start-date"
+                        >Preferred Start Date</label
+                      >
+                      <input
+                        id="booking-start-date"
+                        name="startDate"
+                        class="form-control booking-input"
+                        type="date"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-slot"
+                        >Preferred Time Slot</label
+                      >
+                      <select
+                        id="booking-slot"
+                        name="slot"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select slot</option>
+                        <option value="6:00 AM - 7:00 AM">
+                          6:00 AM - 7:00 AM
+                        </option>
+                        <option value="7:30 AM - 8:30 AM">
+                          7:30 AM - 8:30 AM
+                        </option>
+                        <option value="6:00 PM - 7:00 PM">
+                          6:00 PM - 7:00 PM
+                        </option>
+                        <option value="8:00 PM - 9:00 PM">
+                          8:00 PM - 9:00 PM
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-duration"
+                        >Plan Duration</label
+                      >
+                      <select
+                        id="booking-duration"
+                        name="duration"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select duration</option>
+                        <option value="4 Weeks">4 Weeks</option>
+                        <option value="8 Weeks">8 Weeks</option>
+                        <option value="12 Weeks">12 Weeks</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-frequency"
+                        >Sessions / Week</label
+                      >
+                      <select
+                        id="booking-frequency"
+                        name="frequency"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select frequency</option>
+                        <option value="2 Sessions">2 Sessions</option>
+                        <option value="3 Sessions">3 Sessions</option>
+                        <option value="5 Sessions">5 Sessions</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="booking-step" data-step="3">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-goal"
+                        >Primary Goal</label
+                      >
+                      <select
+                        id="booking-goal"
+                        name="goal"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select goal</option>
+                        <option value="Fat Loss">Fat Loss</option>
+                        <option value="Mobility & Flexibility">
+                          Mobility & Flexibility
+                        </option>
+                        <option value="Stress Relief">Stress Relief</option>
+                        <option value="Strength & Endurance">
+                          Strength & Endurance
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-payment"
+                        >Payment Method</label
+                      >
+                      <select
+                        id="booking-payment"
+                        name="payment"
+                        class="form-select booking-input"
+                        required
+                      >
+                        <option value="">Select payment method</option>
+                        <option value="Card">Card</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-coupon"
+                        >Coupon Code (Optional)</label
+                      >
+                      <input
+                        id="booking-coupon"
+                        name="coupon"
+                        class="form-control booking-input"
+                        type="text"
+                        placeholder="MINDFUL10"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="booking-label" for="booking-note"
+                        >Health Notes (Optional)</label
+                      >
+                      <input
+                        id="booking-note"
+                        name="healthNote"
+                        class="form-control booking-input"
+                        type="text"
+                        placeholder="Knee pain, lower back stiffness..."
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label class="booking-label" for="booking-message"
+                        >Coach Instructions (Optional)</label
+                      >
+                      <textarea
+                        id="booking-message"
+                        name="message"
+                        class="form-control booking-input"
+                        rows="4"
+                        placeholder="Share your routine, constraints, and expectations."
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="booking-form-actions">
+                  <button
+                    type="button"
+                    id="booking-prev-btn"
+                    class="btn btn-outline-danger rounded-pill px-4"
+                    disabled
+                  >
+                    <i class="fas fa-arrow-left me-2"></i>Back
+                  </button>
+                  <button
+                    type="button"
+                    id="booking-next-btn"
+                    class="btn btn-next-step"
+                  >
+                    Next Step <i class="fas fa-arrow-right ms-2"></i>
+                  </button>
+                  <button
+                    type="submit"
+                    id="booking-review-btn"
+                    class="btn btn-submit-premium d-none"
+                  >
+                    Review Bill <i class="fas fa-file-invoice-dollar ms-2"></i>
+                  </button>
+                </div>
+              </form>
+
+              <div id="booking-invoice" class="booking-invoice d-none">
+                <h3 class="booking-invoice-title">Booking Invoice</h3>
+                <p class="booking-invoice-subtitle">
+                  Review details and confirm appointment.
+                </p>
+                <div id="booking-invoice-body" class="booking-invoice-body"></div>
+                <div class="booking-invoice-actions">
+                  <button
+                    type="button"
+                    id="booking-edit-btn"
+                    class="btn btn-outline-danger rounded-pill px-4"
+                  >
+                    Edit Details
+                  </button>
+                  <button
+                    type="button"
+                    id="booking-confirm-btn"
+                    class="btn btn-submit-premium"
+                  >
+                    Confirm Appointment
+                  </button>
+                </div>
+              </div>
+
+              <div id="booking-success" class="booking-success d-none">
+                <div class="success-icon-wrapper mb-4">
+                  <i class="fas fa-check"></i>
+                </div>
+                <h3>Appointment Confirmed</h3>
+                <p id="booking-success-text" class="mb-4"></p>
+                <button
+                  type="button"
+                  id="booking-new-btn"
+                  class="btn btn-outline-danger rounded-pill px-4"
+                >
+                  Book Another Plan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= PREMIUM CONTACT SECTION ================= -->
     <section id="contact" class="contact-section-premium py-5">
       <div class="container py-5">
         <div class="row align-items-center g-5">
-          <!-- Left Side: Info & Presence -->
           <div class="col-lg-5" data-aos-ignore>
             <div class="contact-info-card p-5 rounded-5 shadow-lg h-100">
               <span
@@ -1867,8 +2277,8 @@
                 <span class="text-danger">Zen Journey</span> Together
               </h2>
               <p class="text-secondary lead mb-5">
-                Have questions about our yoga sessions or meditation programs?
-                Our team is here to guide you toward ethereal living.
+                Suggest your preferences and goals. Our team will review your
+                request and guide you with the best plan.
               </p>
 
               <div class="contact-details mb-5">
@@ -1877,8 +2287,9 @@
                     <i class="fas fa-map-marked-alt text-danger"></i>
                   </div>
                   <a
-                    href="https://maps.google.com"
+                    href="https://maps.google.com/?q=123+Serenity+Way,+Wellness+District,+NY"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="contact-link-wrapper"
                   >
                     <h6 class="mb-1 fw-bold text-dark">Our Sanctuary</h6>
@@ -1916,18 +2327,21 @@
                   <a
                     href="https://www.instagram.com"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-circle-link"
                     ><i class="fab fa-instagram"></i
                   ></a>
                   <a
                     href="https://www.facebook.com"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-circle-link"
                     ><i class="fab fa-facebook-f"></i
                   ></a>
                   <a
                     href="https://www.youtube.com"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-circle-link"
                     ><i class="fab fa-youtube"></i
                   ></a>
@@ -1936,12 +2350,10 @@
             </div>
           </div>
 
-          <!-- Right Side: Multi-Step Form -->
           <div class="col-lg-7">
             <div
               class="contact-form-card p-5 rounded-5 shadow-lg position-relative overflow-hidden"
             >
-              <!-- Form Progress Header -->
               <div class="form-progress-header mb-5">
                 <div
                   class="d-flex justify-content-between align-items-center mb-2"
@@ -1967,7 +2379,6 @@
               </div>
 
               <form id="premium-contact-form" autocomplete="off">
-                <!-- Step 1: Personal Info -->
                 <div id="step-1" class="form-step active-step">
                   <div class="row g-4">
                     <div class="col-md-6">
@@ -2021,7 +2432,6 @@
                   </div>
                 </div>
 
-                <!-- Step 2: Message & Interest -->
                 <div id="step-2" class="form-step">
                   <div class="row g-4">
                     <div class="col-12">
@@ -2060,13 +2470,12 @@
                       <i class="fas fa-arrow-left me-2"></i> Back
                     </button>
                     <button type="submit" class="btn btn-submit-premium">
-                      Send Message <i class="fas fa-paper-plane ms-2"></i>
+                      Send Suggestion <i class="fas fa-paper-plane ms-2"></i>
                     </button>
                   </div>
                 </div>
               </form>
 
-              <!-- Success Overlay (Hidden by default) -->
               <div
                 id="form-success-overlay"
                 class="rounded-5 d-flex flex-column align-items-center justify-content-center text-center p-5"
@@ -2074,10 +2483,10 @@
                 <div class="success-icon-wrapper mb-4">
                   <i class="fas fa-check"></i>
                 </div>
-                <h3 class="fw-bold mb-3">Message Received!</h3>
+                <h3 class="fw-bold mb-3">Suggestion Received!</h3>
                 <p class="text-secondary">
-                  Thank you for reaching out. Our team will connect with your
-                  soul shortly.
+                  Thank you. Your suggestion has been received and our team will
+                  contact you shortly.
                 </p>
                 <button
                   type="button"

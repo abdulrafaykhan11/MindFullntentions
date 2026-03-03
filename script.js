@@ -2005,16 +2005,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Book now buttons scroll to contact
   const bookButtons = document.querySelectorAll(".btn-book-now");
-  const contactSection = document.querySelector("#contact");
-  if (bookButtons.length && contactSection) {
+  const bookingAnchor = document.querySelector("#booking");
+  const bookingSection = document.querySelector(".booking-section");
+  if (bookButtons.length && bookingAnchor) {
     bookButtons.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
-        contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-        contactSection.classList.add("section-highlight");
-        setTimeout(() => {
-          contactSection.classList.remove("section-highlight");
-        }, 1400);
+        bookingAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (bookingSection) {
+          bookingSection.classList.add("section-highlight");
+          setTimeout(() => {
+            bookingSection.classList.remove("section-highlight");
+          }, 1400);
+        }
       });
     });
   }
@@ -2187,113 +2190,370 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ================= PREMIUM CONTACT FORM LOGIC =================
-  const form = document.getElementById("premium-contact-form");
-  const steps = document.querySelectorAll(".form-step");
-  const progress = document.getElementById("form-progress-bar");
-  const stepNum = document.getElementById("current-step-num");
-  const stepTitle = document.getElementById("step-title");
-  const successOverlay = document.getElementById("form-success-overlay");
+  // ================= PREMIUM BOOKING FORM LOGIC =================
+  const bookingForm = document.getElementById("booking-form");
+  if (bookingForm) {
+    const bookingSteps = Array.from(document.querySelectorAll(".booking-step"));
+    const bookingStepCurrent = document.getElementById("booking-step-current");
+    const bookingStepLabel = document.getElementById("booking-step-label");
+    const bookingProgressFill = document.getElementById("booking-progress-fill");
+    const bookingNextBtn = document.getElementById("booking-next-btn");
+    const bookingPrevBtn = document.getElementById("booking-prev-btn");
+    const bookingReviewBtn = document.getElementById("booking-review-btn");
+    const bookingInvoice = document.getElementById("booking-invoice");
+    const bookingInvoiceBody = document.getElementById("booking-invoice-body");
+    const bookingEditBtn = document.getElementById("booking-edit-btn");
+    const bookingConfirmBtn = document.getElementById("booking-confirm-btn");
+    const bookingSuccess = document.getElementById("booking-success");
+    const bookingSuccessText = document.getElementById("booking-success-text");
+    const bookingNewBtn = document.getElementById("booking-new-btn");
+    const categorySelect = document.getElementById("booking-category");
+    const trackSelect = document.getElementById("booking-track");
+    const startDateInput = document.getElementById("booking-start-date");
+    const stepLabels = ["Client Profile", "Program Setup", "Payment & Notes"];
 
-  window.nextStep = () => {
-    if (validateStep(1)) {
-      steps[0].classList.remove("active-step");
-      steps[1].classList.add("active-step");
-      progress.style.width = "100%";
-      stepNum.innerText = "2";
-      stepTitle.innerText = "Message Details";
+    const trackCatalog = {
+      poses: [
+        { name: "Sun Salutation Foundation", price: 80 },
+        { name: "Flexibility & Mobility Poses", price: 95 },
+        { name: "Back Pain Relief Pose Therapy", price: 110 },
+      ],
+      courses: [
+        { name: "Cardio Burn Aerobics", price: 130 },
+        { name: "Strength + Endurance Bootcamp", price: 145 },
+        { name: "Weight Loss Transformation Course", price: 160 },
+      ],
+      meditation: [
+        { name: "Guided Breathwork Reset", price: 70 },
+        { name: "Stress Relief Meditation", price: 85 },
+        { name: "Sleep & Recovery Meditation", price: 90 },
+      ],
+    };
 
-      gsap.from("#step-2", {
-        x: 50,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.out",
+    const durationMultiplier = {
+      "4 Weeks": 1,
+      "8 Weeks": 1.85,
+      "12 Weeks": 2.65,
+    };
+
+    const frequencyMultiplier = {
+      "2 Sessions": 1,
+      "3 Sessions": 1.3,
+      "5 Sessions": 1.75,
+    };
+
+    const couponDiscounts = {
+      MINDFUL10: 0.1,
+      START5: 0.05,
+    };
+    const categoryLabels = {
+      poses: "Yoga Poses Program",
+      courses: "Aerobics Course",
+      meditation: "Meditation Program",
+    };
+
+    let currentBookingStep = 1;
+    let lastInvoice = null;
+
+    const setMinBookingDate = () => {
+      if (!startDateInput) return;
+      const today = new Date();
+      const iso = today.toISOString().split("T")[0];
+      startDateInput.setAttribute("min", iso);
+    };
+
+    const updateTrackOptions = (category) => {
+      if (!trackSelect) return;
+      trackSelect.innerHTML = `<option value="">Select track</option>`;
+      (trackCatalog[category] || []).forEach((track) => {
+        const option = document.createElement("option");
+        option.value = track.name;
+        option.textContent = `${track.name} ($${track.price})`;
+        trackSelect.appendChild(option);
+      });
+    };
+
+    const validateField = (field) => {
+      if (!field) return true;
+      const value = (field.value || "").trim();
+      let valid = true;
+
+      if (field.hasAttribute("required")) {
+        valid = value.length > 0;
+      }
+
+      if (valid && field.type === "email") {
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      if (valid && field.type === "tel") {
+        valid = /^\+?[\d\s()-]{10,}$/.test(value);
+      }
+
+      if (valid && field.type === "number") {
+        const num = Number(value);
+        const min = Number(field.min || 0);
+        const max = Number(field.max || Number.MAX_SAFE_INTEGER);
+        valid = Number.isFinite(num) && num >= min && num <= max;
+      }
+
+      if (valid && field.type === "date" && field.min) {
+        valid = value >= field.min;
+      }
+
+      field.classList.toggle("is-valid", valid && value.length > 0);
+      field.classList.toggle("is-invalid", !valid);
+      return valid;
+    };
+
+    const validateBookingStep = (stepNumber) => {
+      const stepEl = bookingSteps.find(
+        (step) => Number(step.dataset.step) === stepNumber,
+      );
+      if (!stepEl) return true;
+      const fields = stepEl.querySelectorAll("input, select, textarea");
+      let allValid = true;
+      fields.forEach((field) => {
+        if (!validateField(field)) allValid = false;
+      });
+      return allValid;
+    };
+
+    const syncBookingActions = () => {
+      const totalSteps = bookingSteps.length;
+      bookingSteps.forEach((step) => {
+        step.classList.toggle(
+          "active",
+          Number(step.dataset.step) === currentBookingStep,
+        );
+      });
+
+      if (bookingStepCurrent) bookingStepCurrent.textContent = currentBookingStep;
+      if (bookingStepLabel) bookingStepLabel.textContent = stepLabels[currentBookingStep - 1];
+      if (bookingProgressFill) {
+        bookingProgressFill.style.width = `${(currentBookingStep / totalSteps) * 100}%`;
+      }
+
+      if (bookingPrevBtn) bookingPrevBtn.disabled = currentBookingStep === 1;
+      if (bookingNextBtn) bookingNextBtn.classList.toggle("d-none", currentBookingStep === totalSteps);
+      if (bookingReviewBtn) bookingReviewBtn.classList.toggle("d-none", currentBookingStep !== totalSteps);
+    };
+
+    const toCurrency = (amount) => `$${amount.toFixed(2)}`;
+
+    const getTrackBasePrice = (category, trackName) => {
+      const track = (trackCatalog[category] || []).find((item) => item.name === trackName);
+      return track ? track.price : 0;
+    };
+
+    const buildInvoice = (formData) => {
+      const category = formData.get("category");
+      const trackName = formData.get("track");
+      const duration = formData.get("duration");
+      const frequency = formData.get("frequency");
+      const coupon = (formData.get("coupon") || "").trim().toUpperCase();
+
+      const basePrice = getTrackBasePrice(category, trackName);
+      const durationFactor = durationMultiplier[duration] || 1;
+      const frequencyFactor = frequencyMultiplier[frequency] || 1;
+      const programSubtotal = basePrice * durationFactor * frequencyFactor;
+      const bookingFee = 12;
+      const discountRate = couponDiscounts[coupon] || 0;
+      const discountAmount = programSubtotal * discountRate;
+      const taxable = Math.max(programSubtotal + bookingFee - discountAmount, 0);
+      const tax = taxable * 0.07;
+      const total = taxable + tax;
+
+      return {
+        fullName: formData.get("fullName"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        startDate: formData.get("startDate"),
+        slot: formData.get("slot"),
+        mode: formData.get("mode"),
+        category,
+        categoryLabel: categoryLabels[category] || category,
+        trackName,
+        duration,
+        frequency,
+        payment: formData.get("payment"),
+        goal: formData.get("goal"),
+        coupon,
+        programSubtotal,
+        bookingFee,
+        discountAmount,
+        tax,
+        total,
+      };
+    };
+
+    const renderInvoice = (invoice) => {
+      if (!bookingInvoiceBody) return;
+      bookingInvoiceBody.innerHTML = `
+        <div class="booking-invoice-row"><span>Client Name</span><strong>${invoice.fullName}</strong></div>
+        <div class="booking-invoice-row"><span>Service</span><strong>${invoice.trackName}</strong></div>
+        <div class="booking-invoice-row"><span>Category</span><strong>${invoice.categoryLabel}</strong></div>
+        <div class="booking-invoice-row"><span>Duration / Frequency</span><strong>${invoice.duration} / ${invoice.frequency}</strong></div>
+        <div class="booking-invoice-row"><span>Mode & Slot</span><strong>${invoice.mode} (${invoice.slot})</strong></div>
+        <div class="booking-invoice-row"><span>Program Charges</span><strong>${toCurrency(invoice.programSubtotal)}</strong></div>
+        <div class="booking-invoice-row"><span>Booking Fee</span><strong>${toCurrency(invoice.bookingFee)}</strong></div>
+        <div class="booking-invoice-row"><span>Coupon Discount</span><strong>-${toCurrency(invoice.discountAmount)}</strong></div>
+        <div class="booking-invoice-row"><span>Tax (7%)</span><strong>${toCurrency(invoice.tax)}</strong></div>
+        <div class="booking-invoice-total"><span>Total Due</span><span>${toCurrency(invoice.total)}</span></div>
+      `;
+    };
+
+    const resetBookingState = () => {
+      bookingForm.reset();
+      bookingForm.classList.remove("d-none");
+      if (bookingInvoice) bookingInvoice.classList.add("d-none");
+      if (bookingSuccess) bookingSuccess.classList.add("d-none");
+      currentBookingStep = 1;
+      lastInvoice = null;
+      bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
+        field.classList.remove("is-valid", "is-invalid");
+      });
+      updateTrackOptions("");
+      syncBookingActions();
+    };
+
+    setMinBookingDate();
+    syncBookingActions();
+
+    if (categorySelect) {
+      categorySelect.addEventListener("change", () => {
+        updateTrackOptions(categorySelect.value);
+        validateField(categorySelect);
       });
     }
-  };
 
-  window.prevStep = () => {
-    steps[1].classList.remove("active-step");
-    steps[0].classList.add("active-step");
-    progress.style.width = "50%";
-    stepNum.innerText = "1";
-    stepTitle.innerText = "Personal Details";
-
-    gsap.from("#step-1", {
-      x: -50,
-      opacity: 0,
-      duration: 0.6,
-      ease: "power2.out",
+    bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
+      const eventName = field.tagName === "SELECT" ? "change" : "input";
+      field.addEventListener(eventName, () => validateField(field));
     });
-  };
 
-  window.resetForm = () => {
-    form.reset();
-    document.querySelectorAll(".form-control").forEach((el) => {
-      el.classList.remove("is-valid", "is-invalid");
-    });
-    successOverlay.classList.remove("show");
-    prevStep();
-  };
-
-  const validateStep = (step) => {
-    let isValid = true;
-    const inputs = steps[step - 1].querySelectorAll("[required]");
-    inputs.forEach((input) => {
-      if (!validateInput(input)) isValid = false;
-    });
-    return isValid;
-  };
-
-  const validateInput = (input) => {
-    let valid = true;
-    if (input.type === "email") {
-      valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
-    } else if (input.type === "tel") {
-      valid = /^\+?[\d\s-]{10,}$/.test(input.value);
-    } else {
-      valid = input.value.trim().length > 2;
+    if (bookingNextBtn) {
+      bookingNextBtn.addEventListener("click", () => {
+        if (!validateBookingStep(currentBookingStep)) return;
+        currentBookingStep += 1;
+        syncBookingActions();
+      });
     }
 
-    if (valid) {
-      input.classList.remove("is-invalid");
-      input.classList.add("is-valid");
-    } else {
-      input.classList.remove("is-valid");
-      input.classList.add("is-invalid");
+    if (bookingPrevBtn) {
+      bookingPrevBtn.addEventListener("click", () => {
+        if (currentBookingStep === 1) return;
+        currentBookingStep -= 1;
+        syncBookingActions();
+      });
     }
-    return valid;
-  };
 
-  // Live Validation
-  form.querySelectorAll("input, textarea").forEach((input) => {
-    input.addEventListener("input", () => validateInput(input));
-  });
+    bookingForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!validateBookingStep(currentBookingStep)) return;
 
-  // Form Submission
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (validateStep(2)) {
-      const submitBtn = form.querySelector(".btn-submit-premium");
-      const originalText = submitBtn.innerHTML;
+      const formData = new FormData(bookingForm);
+      lastInvoice = buildInvoice(formData);
+      renderInvoice(lastInvoice);
+      bookingForm.classList.add("d-none");
+      if (bookingInvoice) bookingInvoice.classList.remove("d-none");
+    });
 
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Sending...`;
-
-      setTimeout(() => {
-        successOverlay.classList.add("show");
-        gsap.from(".success-icon-wrapper", {
-          scale: 0,
-          rotation: -180,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-        });
-
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-      }, 1500);
+    if (bookingEditBtn) {
+      bookingEditBtn.addEventListener("click", () => {
+        if (bookingInvoice) bookingInvoice.classList.add("d-none");
+        bookingForm.classList.remove("d-none");
+      });
     }
-  });
+
+    if (bookingConfirmBtn) {
+      bookingConfirmBtn.addEventListener("click", () => {
+        if (!lastInvoice) return;
+        if (bookingInvoice) bookingInvoice.classList.add("d-none");
+        if (bookingSuccess) bookingSuccess.classList.remove("d-none");
+        if (bookingSuccessText) {
+          bookingSuccessText.textContent = `${lastInvoice.fullName}, your ${lastInvoice.trackName} appointment is booked for ${lastInvoice.startDate} at ${lastInvoice.slot}. A payment summary has been sent to ${lastInvoice.email}.`;
+        }
+      });
+    }
+
+    if (bookingNewBtn) {
+      bookingNewBtn.addEventListener("click", () => {
+        resetBookingState();
+      });
+    }
+  }
+
+  // ================= SUGGESTION FORM LOGIC =================
+  const suggestionForm = document.getElementById("premium-contact-form");
+  if (suggestionForm) {
+    const steps = suggestionForm.querySelectorAll(".form-step");
+    const progress = document.getElementById("form-progress-bar");
+    const stepNum = document.getElementById("current-step-num");
+    const stepTitle = document.getElementById("step-title");
+    const successOverlay = document.getElementById("form-success-overlay");
+
+    const validateSuggestionInput = (input) => {
+      let valid = true;
+      if (input.type === "email") {
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      } else if (input.type === "tel") {
+        valid = /^\+?[\d\s()-]{10,}$/.test(input.value.trim());
+      } else {
+        valid = input.value.trim().length > 2;
+      }
+
+      input.classList.toggle("is-valid", valid);
+      input.classList.toggle("is-invalid", !valid);
+      return valid;
+    };
+
+    const validateSuggestionStep = (step) => {
+      const targetStep = steps[step - 1];
+      if (!targetStep) return true;
+      let isValid = true;
+      targetStep.querySelectorAll("[required]").forEach((input) => {
+        if (!validateSuggestionInput(input)) isValid = false;
+      });
+      return isValid;
+    };
+
+    window.nextStep = () => {
+      if (!validateSuggestionStep(1)) return;
+      steps[0].classList.remove("active-step");
+      steps[1].classList.add("active-step");
+      if (progress) progress.style.width = "100%";
+      if (stepNum) stepNum.innerText = "2";
+      if (stepTitle) stepTitle.innerText = "Message Details";
+    };
+
+    window.prevStep = () => {
+      steps[1].classList.remove("active-step");
+      steps[0].classList.add("active-step");
+      if (progress) progress.style.width = "50%";
+      if (stepNum) stepNum.innerText = "1";
+      if (stepTitle) stepTitle.innerText = "Personal Details";
+    };
+
+    window.resetForm = () => {
+      suggestionForm.reset();
+      suggestionForm
+        .querySelectorAll("input, textarea")
+        .forEach((el) => el.classList.remove("is-valid", "is-invalid"));
+      if (successOverlay) successOverlay.classList.remove("show");
+      window.prevStep();
+    };
+
+    suggestionForm.querySelectorAll("input, textarea").forEach((input) => {
+      input.addEventListener("input", () => validateSuggestionInput(input));
+    });
+
+    suggestionForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!validateSuggestionStep(2)) return;
+      if (successOverlay) successOverlay.classList.add("show");
+    });
+  }
 });
 
 // Navbar Scroll Logic
