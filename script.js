@@ -2104,6 +2104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animateCards(".course-card");
     animateCards(".meditation-card");
     animateCards(".book-card");
+    animateCards(".testimonial-card");
 
     // 2. Smooth Reveal for Headings
     const headings = document.querySelectorAll(
