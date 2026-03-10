@@ -3197,23 +3197,70 @@ document.addEventListener("DOMContentLoaded", () => {
     const stepTitle = document.getElementById("step-title");
     const successOverlay = document.getElementById("form-success-overlay");
 
+    const getSuggestionFeedback = (input) => {
+      const wrapper = input.closest(".form-floating-premium");
+      if (!wrapper) return null;
+      let feedback = wrapper.querySelector(".form-feedback");
+      if (!feedback) {
+        feedback = document.createElement("small");
+        feedback.className = "form-feedback";
+        wrapper.appendChild(feedback);
+      }
+      return feedback;
+    };
+
+    const setSuggestionFeedback = (input, status, message) => {
+      const feedback = getSuggestionFeedback(input);
+      if (!feedback) return;
+      feedback.textContent = message || "";
+      feedback.classList.toggle("show", Boolean(message));
+      feedback.classList.toggle("error", status === "error");
+      feedback.classList.toggle("success", status === "success");
+    };
+
     const validateSuggestionInput = (input) => {
       const value = input.value.trim();
+      const required = input.hasAttribute("required");
       let valid = true;
-      if (input.type === "email") {
-        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      } else if (input.type === "tel") {
-        valid = /^(?:\+92|92|0)?3[0-9]{9}$/.test(value.replace(/[\s()-]/g, ""));
-      } else if (input.id === "form-name") {
-        valid = (value.match(/[A-Za-z]/g) || []).length >= 3;
-      } else if (input.id === "form-message") {
-        valid = value.length >= 10;
-      } else {
-        valid = value.length > 2;
+      let message = "";
+
+      if (required && value.length === 0) {
+        valid = false;
+        message = "This field is required.";
+      } else if (value.length > 0) {
+        if (input.type === "email") {
+          valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+          message = valid ? "Looks good." : "Enter a valid email address.";
+        } else if (input.type === "tel") {
+          valid = /^(?:\+92|92|0)?3[0-9]{9}$/.test(value.replace(/[\s()-]/g, ""));
+          message = valid ? "Looks good." : "Use Pakistani mobile number (03XXXXXXXXX).";
+        } else if (input.id === "form-name") {
+          valid = (value.match(/[A-Za-z]/g) || []).length >= 3;
+          message = valid ? "Looks good." : "Use at least 3 letters.";
+        } else if (input.id === "form-message") {
+          valid = value.length >= 10;
+          message = valid ? "Looks good." : "Message should be at least 10 characters.";
+        } else {
+          valid = value.length > 2;
+          message = valid ? "Looks good." : "Use at least 3 characters.";
+        }
+      }
+
+      if (value.length === 0 && !required) {
+        input.classList.remove("is-valid", "is-invalid");
+        setSuggestionFeedback(input, "", "");
+        return true;
       }
 
       input.classList.toggle("is-valid", valid);
       input.classList.toggle("is-invalid", !valid);
+      if (value.length === 0 && required) {
+        setSuggestionFeedback(input, "error", message);
+      } else if (valid) {
+        setSuggestionFeedback(input, "success", message);
+      } else {
+        setSuggestionFeedback(input, "error", message);
+      }
       return valid;
     };
 
@@ -3247,14 +3294,19 @@ document.addEventListener("DOMContentLoaded", () => {
     window.resetForm = () => {
       suggestionForm.reset();
       suggestionForm
-        .querySelectorAll("input, textarea")
-        .forEach((el) => el.classList.remove("is-valid", "is-invalid"));
+        .querySelectorAll("input, textarea, select")
+        .forEach((el) => {
+          el.classList.remove("is-valid", "is-invalid");
+          setSuggestionFeedback(el, "", "");
+        });
       if (successOverlay) successOverlay.classList.remove("show");
       window.prevStep();
     };
 
-    suggestionForm.querySelectorAll("input, textarea").forEach((input) => {
+    suggestionForm.querySelectorAll("input, textarea, select").forEach((input) => {
       input.addEventListener("input", () => validateSuggestionInput(input));
+      input.addEventListener("change", () => validateSuggestionInput(input));
+      input.addEventListener("blur", () => validateSuggestionInput(input));
     });
 
     suggestionForm.addEventListener("submit", (e) => {

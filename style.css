@@ -3060,6 +3060,26 @@ button,
   outline: none !important;
 }
 
+.form-floating-premium .form-control.is-valid,
+.form-floating-premium .form-select.is-valid {
+  border-color: #16a34a;
+}
+
+.form-floating-premium .form-control.is-invalid,
+.form-floating-premium .form-select.is-invalid {
+  border-color: #dc2626;
+}
+
+.form-floating-premium .form-control.is-invalid ~ label,
+.form-floating-premium .form-select.is-invalid ~ label {
+  color: #dc2626;
+}
+
+.form-floating-premium .form-control.is-valid ~ label,
+.form-floating-premium .form-select.is-valid ~ label {
+  color: #16a34a;
+}
+
 .validation-dot {
   position: absolute;
   right: 0;
@@ -3079,6 +3099,31 @@ button,
 .form-control.is-invalid + label + .validation-dot {
   background: #ef4444;
   box-shadow: 0 0 8px #ef4444;
+}
+
+.form-feedback {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 6px;
+  color: #6b7280;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.form-feedback.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-feedback.error {
+  color: #dc2626;
+}
+
+.form-feedback.success {
+  color: #16a34a;
 }
 
 /* Form Steps */
