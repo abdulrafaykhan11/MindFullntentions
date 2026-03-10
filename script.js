@@ -2386,6 +2386,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const categorySelect = document.getElementById("booking-category");
     const trackSelect = document.getElementById("booking-track");
     const startDateInput = document.getElementById("booking-start-date");
+    const paymentSelect = document.getElementById("booking-payment");
+    const cardFieldsWrapper = document.getElementById("booking-card-fields");
+    const cardNameInput = document.getElementById("booking-card-name");
+    const cardNumberInput = document.getElementById("booking-card-number");
+    const cardExpiryInput = document.getElementById("booking-card-expiry");
+    const cardCvvInput = document.getElementById("booking-card-cvv");
+    const bankFieldsWrapper = document.getElementById("booking-bank-fields");
+    const bankNameInput = document.getElementById("booking-bank-name");
+    const accountTitleInput = document.getElementById("booking-account-title");
+    const ibanInput = document.getElementById("booking-iban");
+    const transactionIdInput = document.getElementById("booking-txn-id");
+    const transferDateInput = document.getElementById("booking-transfer-date");
+    const couponInput = document.getElementById("booking-coupon");
+    const couponFeedback = document.getElementById("booking-coupon-feedback");
     const stepLabels = ["Client Profile", "Program Setup", "Payment & Notes"];
 
     const trackCatalog = {
@@ -2419,8 +2433,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const couponDiscounts = {
-      MINDFUL10: 0.1,
-      START5: 0.05,
+      MINDFUL20: 0.2,
+      ZEN20: 0.2,
+      FIT20: 0.2,
     };
     const categoryLabels = {
       poses: "Yoga Poses Program",
@@ -2430,12 +2445,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentBookingStep = 1;
     let lastInvoice = null;
+    let invalidCouponAttempts = 0;
 
     const setMinBookingDate = () => {
       if (!startDateInput) return;
       const today = new Date();
       const iso = today.toISOString().split("T")[0];
       startDateInput.setAttribute("min", iso);
+      if (transferDateInput) {
+        transferDateInput.setAttribute("max", iso);
+      }
     };
 
     const updateTrackOptions = (category) => {
@@ -2451,6 +2470,87 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hasMinimumLetters = (text, minLetters) =>
       (text.match(/[A-Za-z]/g) || []).length >= minLetters;
+    const pakPhoneRegex = /^(?:\+92|92|0)?3[0-9]{9}$/;
+
+    const normalizePakPhone = (raw) => raw.replace(/[\s()-]/g, "");
+
+    const isValidCardNumber = (raw) => /^\d{16}$/.test(raw.replace(/\D/g, ""));
+
+    const isValidExpiry = (raw) => {
+      const match = raw.match(/^(0[1-9]|1[0-2])\/(\d{2}|\d{4})$/);
+      if (!match) return false;
+      return true;
+    };
+
+    const normalizeIban = (raw) => raw.replace(/\s/g, "").toUpperCase();
+    const normalizeCoupon = (raw) => raw.trim().toUpperCase();
+
+    const isValidPkIban = (raw) => /^PK\d{2}[A-Z0-9]{20}$/.test(normalizeIban(raw));
+
+    const setCouponFeedback = (message = "", variant = "warning") => {
+      if (!couponFeedback) return;
+      couponFeedback.textContent = message || "Coupon could not be applied.";
+      couponFeedback.classList.toggle("d-none", !message);
+      couponFeedback.classList.remove("text-warning", "text-danger", "text-success");
+      if (message) {
+        const allowed = ["warning", "danger", "success"];
+        const tone = allowed.includes(variant) ? variant : "warning";
+        couponFeedback.classList.add(`text-${tone}`);
+      }
+    };
+
+    const updateCouponState = () => {
+      if (!couponInput) return;
+      const raw = couponInput.value || "";
+      const code = normalizeCoupon(raw);
+      if (raw.trim().length === 0) {
+        couponInput.classList.remove("is-valid", "is-invalid");
+        setCouponFeedback("");
+        return;
+      }
+      if (couponDiscounts[code]) {
+        couponInput.classList.add("is-valid");
+        couponInput.classList.remove("is-invalid");
+        setCouponFeedback(`Coupon applied: ${code}.`, "success");
+      } else {
+        couponInput.classList.add("is-invalid");
+        couponInput.classList.remove("is-valid");
+        setCouponFeedback("Invalid coupon code.", "danger");
+      }
+    };
+
+    const updatePaymentFieldsVisibility = () => {
+      const paymentValue = paymentSelect ? paymentSelect.value.trim() : "";
+      const isCardPayment = paymentValue === "Card";
+      const isBankTransfer = paymentValue === "Bank Transfer";
+
+      if (cardFieldsWrapper) {
+        cardFieldsWrapper.classList.toggle("d-none", !isCardPayment);
+      }
+      if (bankFieldsWrapper) {
+        bankFieldsWrapper.classList.toggle("d-none", !isBankTransfer);
+      }
+
+      [cardNameInput, cardNumberInput, cardExpiryInput, cardCvvInput].forEach((field) => {
+        if (!field) return;
+        field.toggleAttribute("required", Boolean(isCardPayment));
+        if (!isCardPayment) {
+          field.value = "";
+          field.classList.remove("is-valid", "is-invalid");
+        }
+      });
+
+      [bankNameInput, accountTitleInput, ibanInput, transactionIdInput, transferDateInput].forEach(
+        (field) => {
+          if (!field) return;
+          field.toggleAttribute("required", Boolean(isBankTransfer));
+          if (!isBankTransfer) {
+            field.value = "";
+            field.classList.remove("is-valid", "is-invalid");
+          }
+        },
+      );
+    };
 
     const validateField = (field) => {
       if (!field) return true;
@@ -2466,7 +2566,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (valid && field.type === "tel") {
-        valid = /^\+?[0-9][\d\s()-]{9,14}$/.test(value);
+        if (field.id === "booking-phone") {
+          valid = pakPhoneRegex.test(normalizePakPhone(value));
+        } else {
+          valid = /^\+?[0-9][\d\s()-]{9,14}$/.test(value);
+        }
       }
 
       if (valid && field.type === "number") {
@@ -2490,6 +2594,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (valid && field.id === "booking-note" && value.length > 0) {
         valid = value.length >= 5;
+      }
+
+      if (valid && field.id === "booking-card-name") {
+        valid = !field.hasAttribute("required") ? true : hasMinimumLetters(value, 3);
+      }
+
+      if (valid && field.id === "booking-card-number") {
+        valid = !field.hasAttribute("required") && value.length === 0 ? true : isValidCardNumber(value);
+      }
+
+      if (valid && field.id === "booking-card-expiry") {
+        valid = !field.hasAttribute("required") && value.length === 0 ? true : isValidExpiry(value);
+      }
+
+      if (valid && field.id === "booking-card-cvv") {
+        valid = !field.hasAttribute("required") && value.length === 0 ? true : /^\d{3,4}$/.test(value);
+      }
+
+      if (valid && field.id === "booking-bank-name") {
+        valid = !field.hasAttribute("required") && value.length === 0 ? true : hasMinimumLetters(value, 2);
+      }
+
+      if (valid && field.id === "booking-account-title") {
+        valid = !field.hasAttribute("required") && value.length === 0 ? true : hasMinimumLetters(value, 3);
+      }
+
+      if (valid && field.id === "booking-iban") {
+        valid = !field.hasAttribute("required") && value.length === 0 ? true : isValidPkIban(value);
+      }
+
+      if (valid && field.id === "booking-txn-id") {
+        valid =
+          !field.hasAttribute("required") && value.length === 0
+            ? true
+            : /^[A-Za-z0-9-]{6,24}$/.test(value);
+      }
+
+      if (valid && field.id === "booking-transfer-date") {
+        if (!field.hasAttribute("required") && value.length === 0) {
+          valid = true;
+        } else {
+          const today = new Date().toISOString().split("T")[0];
+          valid = value.length > 0 && value <= today;
+        }
+      }
+
+      if (field.id === "booking-coupon") {
+        updateCouponState();
+        return true;
       }
 
       field.classList.toggle("is-valid", valid && value.length > 0);
@@ -2524,6 +2677,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (bookingProgressFill) {
         bookingProgressFill.style.width = `${(currentBookingStep / totalSteps) * 100}%`;
       }
+      updatePaymentFieldsVisibility();
 
       if (bookingPrevBtn) bookingPrevBtn.disabled = currentBookingStep === 1;
       if (bookingNextBtn) bookingNextBtn.classList.toggle("d-none", currentBookingStep === totalSteps);
@@ -2538,6 +2692,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const buildInvoice = (formData) => {
+      const createdAt = new Date();
       const category = formData.get("category");
       const trackName = formData.get("track");
       const duration = formData.get("duration");
@@ -2556,9 +2711,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const total = taxable + tax;
 
       return {
+        invoiceId: `MI-${createdAt.getTime().toString().slice(-6)}`,
+        createdAt: createdAt.toISOString(),
         fullName: formData.get("fullName"),
         email: formData.get("email"),
         phone: formData.get("phone"),
+        city: formData.get("city"),
         startDate: formData.get("startDate"),
         slot: formData.get("slot"),
         mode: formData.get("mode"),
@@ -2568,6 +2726,13 @@ document.addEventListener("DOMContentLoaded", () => {
         duration,
         frequency,
         payment: formData.get("payment"),
+        cardName: formData.get("cardName") || "",
+        cardLast4: (formData.get("cardNumber") || "").replace(/\D/g, "").slice(-4),
+        bankName: formData.get("bankName") || "",
+        accountTitle: formData.get("accountTitle") || "",
+        ibanLast4: normalizeIban(formData.get("iban") || "").slice(-4),
+        transactionId: formData.get("transactionId") || "",
+        transferDate: formData.get("transferDate") || "",
         goal: formData.get("goal"),
         coupon,
         programSubtotal,
@@ -2578,20 +2743,119 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     };
 
+    const formatInvoiceDate = (iso) =>
+      new Date(iso).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+
+    const buildInvoiceMarkup = (invoice) => {
+      const dateLabel = formatInvoiceDate(invoice.createdAt || new Date().toISOString());
+      const couponLabel = invoice.coupon || "None";
+      const paymentDetails =
+        invoice.payment === "Card"
+          ? `<div class="invoice-line"><span>Card</span><strong>**** **** **** ${invoice.cardLast4 || "----"}</strong></div>`
+          : invoice.payment === "Bank Transfer"
+            ? `
+            <div class="invoice-line"><span>Bank</span><strong>${invoice.bankName || "----"}</strong></div>
+            <div class="invoice-line"><span>Account Title</span><strong>${invoice.accountTitle || "----"}</strong></div>
+            <div class="invoice-line"><span>IBAN / Txn</span><strong>PK***************${invoice.ibanLast4 || "----"} | ${invoice.transactionId || "----"}</strong></div>
+            <div class="invoice-line"><span>Transfer Date</span><strong>${invoice.transferDate || "----"}</strong></div>
+          `
+            : `<div class="invoice-line"><span>Payment</span><strong>${invoice.payment}</strong></div>`;
+
+      return `
+        <div class="invoice-header">
+          <div class="invoice-brand">
+            <div class="invoice-logo">MI</div>
+            <div>
+              <div class="invoice-title">Booking Invoice</div>
+              <div class="invoice-subtitle">MindfulIntentions Wellness</div>
+            </div>
+          </div>
+          <div class="invoice-meta">
+            <div><span>Invoice ID</span><strong>${invoice.invoiceId}</strong></div>
+            <div><span>Date</span><strong>${dateLabel}</strong></div>
+          </div>
+        </div>
+        <div class="invoice-badges">
+          <span class="invoice-badge">${invoice.categoryLabel}</span>
+          <span class="invoice-badge">${invoice.payment}</span>
+        </div>
+        <div class="invoice-grid">
+          <div class="invoice-block">
+            <h4>Client</h4>
+            <p class="invoice-strong">${invoice.fullName}</p>
+            <p>${invoice.email}</p>
+            <p>${invoice.phone}</p>
+            <p>City: ${invoice.city || "—"}</p>
+          </div>
+          <div class="invoice-block">
+            <h4>Booking</h4>
+            <p class="invoice-strong">${invoice.trackName}</p>
+            <p>${invoice.duration} / ${invoice.frequency}</p>
+            <p>${invoice.mode} (${invoice.slot})</p>
+            <p>Start: ${invoice.startDate}</p>
+            <p>Goal: ${invoice.goal}</p>
+          </div>
+          <div class="invoice-block">
+            <h4>Payment Details</h4>
+            ${paymentDetails}
+          </div>
+        </div>
+        <div class="invoice-charges">
+          <div class="invoice-line"><span>Program Charges</span><strong>${toCurrency(invoice.programSubtotal)}</strong></div>
+          <div class="invoice-line"><span>Booking Fee</span><strong>${toCurrency(invoice.bookingFee)}</strong></div>
+          <div class="invoice-line"><span>Coupon Code</span><strong>${couponLabel}</strong></div>
+          <div class="invoice-line"><span>Coupon Discount</span><strong>-${toCurrency(invoice.discountAmount)}</strong></div>
+          <div class="invoice-line"><span>Tax (7%)</span><strong>${toCurrency(invoice.tax)}</strong></div>
+          <div class="invoice-total"><span>Total Due</span><span>${toCurrency(invoice.total)}</span></div>
+        </div>
+        <div class="invoice-note">
+          Coupon code must be scanned at delivery. Keep this invoice for verification.
+        </div>
+      `;
+    };
+
     const renderInvoice = (invoice) => {
       if (!bookingInvoiceBody) return;
-      bookingInvoiceBody.innerHTML = `
-        <div class="booking-invoice-row"><span>Client Name</span><strong>${invoice.fullName}</strong></div>
-        <div class="booking-invoice-row"><span>Service</span><strong>${invoice.trackName}</strong></div>
-        <div class="booking-invoice-row"><span>Category</span><strong>${invoice.categoryLabel}</strong></div>
-        <div class="booking-invoice-row"><span>Duration / Frequency</span><strong>${invoice.duration} / ${invoice.frequency}</strong></div>
-        <div class="booking-invoice-row"><span>Mode & Slot</span><strong>${invoice.mode} (${invoice.slot})</strong></div>
-        <div class="booking-invoice-row"><span>Program Charges</span><strong>${toCurrency(invoice.programSubtotal)}</strong></div>
-        <div class="booking-invoice-row"><span>Booking Fee</span><strong>${toCurrency(invoice.bookingFee)}</strong></div>
-        <div class="booking-invoice-row"><span>Coupon Discount</span><strong>-${toCurrency(invoice.discountAmount)}</strong></div>
-        <div class="booking-invoice-row"><span>Tax (7%)</span><strong>${toCurrency(invoice.tax)}</strong></div>
-        <div class="booking-invoice-total"><span>Total Due</span><span>${toCurrency(invoice.total)}</span></div>
-      `;
+      bookingInvoiceBody.innerHTML = buildInvoiceMarkup(invoice);
+    };
+
+    const downloadInvoicePdf = (invoice) => {
+      if (!window.html2pdf) return;
+      const wrapper = document.createElement("div");
+      wrapper.className = "invoice-print-container";
+      wrapper.innerHTML = `<div class="booking-invoice invoice-print">${buildInvoiceMarkup(invoice)}</div>`;
+      document.body.appendChild(wrapper);
+
+      const safeName = (invoice.fullName || "Client")
+        .toString()
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^A-Za-z0-9-]/g, "");
+      const dateStamp = new Date().toISOString().split("T")[0];
+
+      const options = {
+        margin: 8,
+        filename: `MindfulIntentions-Invoice-${safeName || "Client"}-${dateStamp}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      };
+
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          window.html2pdf()
+            .set(options)
+            .from(wrapper)
+            .save()
+            .finally(() => {
+              wrapper.remove();
+            });
+        }, 60);
+      });
     };
 
     const resetBookingState = () => {
@@ -2601,14 +2865,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (bookingSuccess) bookingSuccess.classList.add("d-none");
       currentBookingStep = 1;
       lastInvoice = null;
+      invalidCouponAttempts = 0;
       bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
         field.classList.remove("is-valid", "is-invalid");
       });
+      if (couponInput) couponInput.disabled = false;
+      setCouponFeedback("");
       updateTrackOptions("");
+      updatePaymentFieldsVisibility();
       syncBookingActions();
     };
 
     setMinBookingDate();
+    updatePaymentFieldsVisibility();
     syncBookingActions();
 
     if (categorySelect) {
@@ -2618,6 +2887,62 @@ document.addEventListener("DOMContentLoaded", () => {
         if (trackSelect) {
           trackSelect.classList.remove("is-valid", "is-invalid");
         }
+      });
+    }
+
+    if (paymentSelect) {
+      paymentSelect.addEventListener("change", () => {
+        updatePaymentFieldsVisibility();
+        validateField(paymentSelect);
+      });
+    }
+
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener("input", () => {
+          const digits = cardNumberInput.value.replace(/\D/g, "").slice(0, 16);
+          cardNumberInput.value = digits.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
+          validateField(cardNumberInput);
+        });
+      }
+
+    if (cardExpiryInput) {
+      cardExpiryInput.addEventListener("input", () => {
+        const digits = cardExpiryInput.value.replace(/\D/g, "").slice(0, 6);
+        cardExpiryInput.value =
+          digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
+        validateField(cardExpiryInput);
+      });
+    }
+
+    if (cardCvvInput) {
+      cardCvvInput.addEventListener("input", () => {
+        cardCvvInput.value = cardCvvInput.value.replace(/\D/g, "").slice(0, 4);
+        validateField(cardCvvInput);
+      });
+    }
+
+    if (ibanInput) {
+      ibanInput.addEventListener("input", () => {
+        ibanInput.value = normalizeIban(ibanInput.value).slice(0, 24);
+        validateField(ibanInput);
+      });
+    }
+
+    if (transactionIdInput) {
+      transactionIdInput.addEventListener("input", () => {
+        transactionIdInput.value = transactionIdInput.value
+          .toUpperCase()
+          .replace(/[^A-Z0-9-]/g, "")
+          .slice(0, 24);
+        validateField(transactionIdInput);
+      });
+    }
+
+    if (couponInput) {
+      couponInput.addEventListener("input", () => updateCouponState());
+      couponInput.addEventListener("blur", () => {
+        couponInput.value = normalizeCoupon(couponInput.value);
+        updateCouponState();
       });
     }
 
@@ -2648,6 +2973,29 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!validateBookingStep(currentBookingStep)) return;
 
       const formData = new FormData(bookingForm);
+      const coupon = normalizeCoupon(formData.get("coupon") || "");
+      if (couponInput) {
+        couponInput.value = coupon;
+      }
+      if (coupon.length > 0 && !couponDiscounts[coupon]) {
+        invalidCouponAttempts += 1;
+        couponInput.classList.add("is-invalid");
+        couponInput.classList.remove("is-valid");
+        setCouponFeedback("Coupon could not be applied.", "danger");
+        if (invalidCouponAttempts >= 3) {
+          if (couponInput) couponInput.disabled = true;
+          setCouponFeedback("Coupon validation limit reached. Continue without coupon.", "warning");
+        }
+        return;
+      }
+      if (coupon.length > 0) {
+        couponInput.classList.add("is-valid");
+        couponInput.classList.remove("is-invalid");
+        setCouponFeedback(`Coupon applied: ${coupon}.`, "success");
+      } else {
+        couponInput.classList.remove("is-valid", "is-invalid");
+        setCouponFeedback("");
+      }
       lastInvoice = buildInvoice(formData);
       renderInvoice(lastInvoice);
       bookingForm.classList.add("d-none");
@@ -2664,6 +3012,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (bookingConfirmBtn) {
       bookingConfirmBtn.addEventListener("click", () => {
         if (!lastInvoice) return;
+        downloadInvoicePdf(lastInvoice);
         if (bookingInvoice) bookingInvoice.classList.add("d-none");
         if (bookingSuccess) bookingSuccess.classList.remove("d-none");
         if (bookingSuccessText) {
@@ -2694,7 +3043,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (input.type === "email") {
         valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
       } else if (input.type === "tel") {
-        valid = /^\+?[0-9][\d\s()-]{9,14}$/.test(value);
+        valid = /^(?:\+92|92|0)?3[0-9]{9}$/.test(value.replace(/[\s()-]/g, ""));
       } else if (input.id === "form-name") {
         valid = (value.match(/[A-Za-z]/g) || []).length >= 3;
       } else if (input.id === "form-message") {

@@ -2673,8 +2673,7 @@ button,
 }
 
 .booking-invoice-body {
-  display: grid;
-  gap: 10px;
+  display: block;
 }
 
 .booking-invoice-row {
@@ -2698,6 +2697,182 @@ button,
   justify-content: space-between;
   font-size: 1rem;
   font-weight: 800;
+}
+
+.booking-invoice-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(15, 23, 42, 0.18);
+  background: rgba(15, 23, 42, 0.03);
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.invoice-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.invoice-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #dc2626, #f97316);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invoice-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.invoice-subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.invoice-meta {
+  display: grid;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: right;
+}
+
+.invoice-meta strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+.invoice-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.invoice-badge {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.invoice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.invoice-block {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+}
+
+.invoice-block h4 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.invoice-block p {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+}
+
+.invoice-strong {
+  font-weight: 700;
+  color: #111827;
+}
+
+.invoice-charges {
+  background: linear-gradient(145deg, #ffffff, #fff1ec);
+  border: 1px solid rgba(220, 38, 38, 0.14);
+  border-radius: 18px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.invoice-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.invoice-line span {
+  color: #6b7280;
+}
+
+.invoice-line strong {
+  color: #111827;
+  margin-left: auto;
+  text-align: right;
+  max-width: 55%;
+  word-break: break-word;
+}
+
+.invoice-total {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 2px solid rgba(220, 38, 38, 0.2);
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.invoice-note {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(15, 23, 42, 0.2);
+  background: rgba(15, 23, 42, 0.03);
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.invoice-print-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 210mm;
+  padding: 0;
+  background: #fff;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.invoice-print-container .booking-invoice {
+  width: 210mm;
+  max-width: 210mm;
+  box-shadow: none;
 }
 
 .booking-invoice-actions {

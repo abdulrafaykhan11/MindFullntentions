@@ -2112,7 +2112,8 @@
                         name="phone"
                         class="form-control booking-input"
                         type="tel"
-                        placeholder="+1 234 567 8900"
+                        placeholder="03XXXXXXXXX or +923XXXXXXXXX"
+                        inputmode="numeric"
                         required
                       />
                     </div>
@@ -2306,6 +2307,134 @@
                         <option value="Bank Transfer">Bank Transfer</option>
                       </select>
                     </div>
+                    <div id="booking-card-fields" class="col-12 d-none">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label class="booking-label" for="booking-card-name"
+                            >Cardholder Name</label
+                          >
+                          <input
+                            id="booking-card-name"
+                            name="cardName"
+                            class="form-control booking-input"
+                            type="text"
+                            placeholder="Name on card"
+                            autocomplete="cc-name"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="booking-label" for="booking-card-number"
+                            >Card Number</label
+                          >
+                          <input
+                            id="booking-card-number"
+                            name="cardNumber"
+                            class="form-control booking-input"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="19"
+                            placeholder="1234 5678 9012 3456"
+                            autocomplete="cc-number"
+                          />
+                        </div>
+                        <div class="col-md-3">
+                          <label class="booking-label" for="booking-card-expiry"
+                            >Expiry (MM/YY)</label
+                          >
+                          <input
+                            id="booking-card-expiry"
+                            name="cardExpiry"
+                            class="form-control booking-input"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="7"
+                            placeholder="MM/YY or MM/YYYY"
+                            autocomplete="cc-exp"
+                          />
+                        </div>
+                        <div class="col-md-3">
+                          <label class="booking-label" for="booking-card-cvv"
+                            >CVV</label
+                          >
+                          <input
+                            id="booking-card-cvv"
+                            name="cardCvv"
+                            class="form-control booking-input"
+                            type="password"
+                            inputmode="numeric"
+                            maxlength="4"
+                            placeholder="123"
+                            autocomplete="cc-csc"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div id="booking-bank-fields" class="col-12 d-none">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label class="booking-label" for="booking-bank-name"
+                            >Bank Name</label
+                          >
+                          <input
+                            id="booking-bank-name"
+                            name="bankName"
+                            class="form-control booking-input"
+                            type="text"
+                            placeholder="Meezan Bank / HBL / UBL"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="booking-label" for="booking-account-title"
+                            >Account Title</label
+                          >
+                          <input
+                            id="booking-account-title"
+                            name="accountTitle"
+                            class="form-control booking-input"
+                            type="text"
+                            placeholder="Account holder full name"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="booking-label" for="booking-iban"
+                            >IBAN (PK)</label
+                          >
+                          <input
+                            id="booking-iban"
+                            name="iban"
+                            class="form-control booking-input"
+                            type="text"
+                            inputmode="text"
+                            maxlength="29"
+                            placeholder="PK36SCBL0000001123456702"
+                          />
+                        </div>
+                        <div class="col-md-3">
+                          <label class="booking-label" for="booking-txn-id"
+                            >Transaction ID</label
+                          >
+                          <input
+                            id="booking-txn-id"
+                            name="transactionId"
+                            class="form-control booking-input"
+                            type="text"
+                            maxlength="24"
+                            placeholder="TRX12345678"
+                          />
+                        </div>
+                        <div class="col-md-3">
+                          <label class="booking-label" for="booking-transfer-date"
+                            >Transfer Date</label
+                          >
+                          <input
+                            id="booking-transfer-date"
+                            name="transferDate"
+                            class="form-control booking-input"
+                            type="date"
+                          />
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-md-6">
                       <label class="booking-label" for="booking-coupon"
                         >Coupon Code (Optional)</label
@@ -2315,8 +2444,11 @@
                         name="coupon"
                         class="form-control booking-input"
                         type="text"
-                        placeholder="MINDFUL10"
+                        placeholder="MINDFUL20 / ZEN20 / FIT20"
                       />
+                      <small id="booking-coupon-feedback" class="text-warning d-none"
+                        >Coupon could not be applied.</small
+                      >
                     </div>
                     <div class="col-md-6">
                       <label class="booking-label" for="booking-note"
@@ -2577,6 +2709,9 @@
                           class="form-control"
                           id="form-phone"
                           placeholder="Phone Number"
+                          inputmode="numeric"
+                          pattern="^(?:\\+92|92|0)?3[0-9]{9}$"
+                          title="Use Pakistani mobile number e.g. 03XXXXXXXXX or +923XXXXXXXXX"
                           required
                         />
                         <label for="form-phone">Phone Number</label>
@@ -2777,6 +2912,7 @@
     <!-- GSAP for Premium Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
