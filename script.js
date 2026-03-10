@@ -2024,7 +2024,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Navbar active state by scroll position
   const navLinks = Array.from(document.querySelectorAll(".navbar .nav-link"));
-  const homeNavLink = navLinks.find((link) => link.getAttribute("href") === "#");
+  const homeNavLink = navLinks.find(
+    (link) => link.getAttribute("href") === "#",
+  );
   const sectionNavPairs = navLinks
     .map((link) => {
       const href = link.getAttribute("href") || "";
@@ -2372,7 +2374,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookingSteps = Array.from(document.querySelectorAll(".booking-step"));
     const bookingStepCurrent = document.getElementById("booking-step-current");
     const bookingStepLabel = document.getElementById("booking-step-label");
-    const bookingProgressFill = document.getElementById("booking-progress-fill");
+    const bookingProgressFill = document.getElementById(
+      "booking-progress-fill",
+    );
     const bookingNextBtn = document.getElementById("booking-next-btn");
     const bookingPrevBtn = document.getElementById("booking-prev-btn");
     const bookingReviewBtn = document.getElementById("booking-review-btn");
@@ -2485,13 +2489,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const normalizeIban = (raw) => raw.replace(/\s/g, "").toUpperCase();
     const normalizeCoupon = (raw) => raw.trim().toUpperCase();
 
-    const isValidPkIban = (raw) => /^PK\d{2}[A-Z0-9]{20}$/.test(normalizeIban(raw));
+    const isValidPkIban = (raw) =>
+      /^PK\d{2}[A-Z0-9]{20}$/.test(normalizeIban(raw));
 
     const setCouponFeedback = (message = "", variant = "warning") => {
       if (!couponFeedback) return;
       couponFeedback.textContent = message || "Coupon could not be applied.";
       couponFeedback.classList.toggle("d-none", !message);
-      couponFeedback.classList.remove("text-warning", "text-danger", "text-success");
+      couponFeedback.classList.remove(
+        "text-warning",
+        "text-danger",
+        "text-success",
+      );
       if (message) {
         const allowed = ["warning", "danger", "success"];
         const tone = allowed.includes(variant) ? variant : "warning";
@@ -2531,25 +2540,31 @@ document.addEventListener("DOMContentLoaded", () => {
         bankFieldsWrapper.classList.toggle("d-none", !isBankTransfer);
       }
 
-      [cardNameInput, cardNumberInput, cardExpiryInput, cardCvvInput].forEach((field) => {
-        if (!field) return;
-        field.toggleAttribute("required", Boolean(isCardPayment));
-        if (!isCardPayment) {
-          field.value = "";
-          field.classList.remove("is-valid", "is-invalid");
-        }
-      });
-
-      [bankNameInput, accountTitleInput, ibanInput, transactionIdInput, transferDateInput].forEach(
+      [cardNameInput, cardNumberInput, cardExpiryInput, cardCvvInput].forEach(
         (field) => {
           if (!field) return;
-          field.toggleAttribute("required", Boolean(isBankTransfer));
-          if (!isBankTransfer) {
+          field.toggleAttribute("required", Boolean(isCardPayment));
+          if (!isCardPayment) {
             field.value = "";
             field.classList.remove("is-valid", "is-invalid");
           }
         },
       );
+
+      [
+        bankNameInput,
+        accountTitleInput,
+        ibanInput,
+        transactionIdInput,
+        transferDateInput,
+      ].forEach((field) => {
+        if (!field) return;
+        field.toggleAttribute("required", Boolean(isBankTransfer));
+        if (!isBankTransfer) {
+          field.value = "";
+          field.classList.remove("is-valid", "is-invalid");
+        }
+      });
     };
 
     const validateField = (field) => {
@@ -2597,31 +2612,51 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (valid && field.id === "booking-card-name") {
-        valid = !field.hasAttribute("required") ? true : hasMinimumLetters(value, 3);
+        valid = !field.hasAttribute("required")
+          ? true
+          : hasMinimumLetters(value, 3);
       }
 
       if (valid && field.id === "booking-card-number") {
-        valid = !field.hasAttribute("required") && value.length === 0 ? true : isValidCardNumber(value);
+        valid =
+          !field.hasAttribute("required") && value.length === 0
+            ? true
+            : isValidCardNumber(value);
       }
 
       if (valid && field.id === "booking-card-expiry") {
-        valid = !field.hasAttribute("required") && value.length === 0 ? true : isValidExpiry(value);
+        valid =
+          !field.hasAttribute("required") && value.length === 0
+            ? true
+            : isValidExpiry(value);
       }
 
       if (valid && field.id === "booking-card-cvv") {
-        valid = !field.hasAttribute("required") && value.length === 0 ? true : /^\d{3,4}$/.test(value);
+        valid =
+          !field.hasAttribute("required") && value.length === 0
+            ? true
+            : /^\d{3,4}$/.test(value);
       }
 
       if (valid && field.id === "booking-bank-name") {
-        valid = !field.hasAttribute("required") && value.length === 0 ? true : hasMinimumLetters(value, 2);
+        valid =
+          !field.hasAttribute("required") && value.length === 0
+            ? true
+            : hasMinimumLetters(value, 2);
       }
 
       if (valid && field.id === "booking-account-title") {
-        valid = !field.hasAttribute("required") && value.length === 0 ? true : hasMinimumLetters(value, 3);
+        valid =
+          !field.hasAttribute("required") && value.length === 0
+            ? true
+            : hasMinimumLetters(value, 3);
       }
 
       if (valid && field.id === "booking-iban") {
-        valid = !field.hasAttribute("required") && value.length === 0 ? true : isValidPkIban(value);
+        valid =
+          !field.hasAttribute("required") && value.length === 0
+            ? true
+            : isValidPkIban(value);
       }
 
       if (valid && field.id === "booking-txn-id") {
@@ -2672,22 +2707,34 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       });
 
-      if (bookingStepCurrent) bookingStepCurrent.textContent = currentBookingStep;
-      if (bookingStepLabel) bookingStepLabel.textContent = stepLabels[currentBookingStep - 1];
+      if (bookingStepCurrent)
+        bookingStepCurrent.textContent = currentBookingStep;
+      if (bookingStepLabel)
+        bookingStepLabel.textContent = stepLabels[currentBookingStep - 1];
       if (bookingProgressFill) {
         bookingProgressFill.style.width = `${(currentBookingStep / totalSteps) * 100}%`;
       }
       updatePaymentFieldsVisibility();
 
       if (bookingPrevBtn) bookingPrevBtn.disabled = currentBookingStep === 1;
-      if (bookingNextBtn) bookingNextBtn.classList.toggle("d-none", currentBookingStep === totalSteps);
-      if (bookingReviewBtn) bookingReviewBtn.classList.toggle("d-none", currentBookingStep !== totalSteps);
+      if (bookingNextBtn)
+        bookingNextBtn.classList.toggle(
+          "d-none",
+          currentBookingStep === totalSteps,
+        );
+      if (bookingReviewBtn)
+        bookingReviewBtn.classList.toggle(
+          "d-none",
+          currentBookingStep !== totalSteps,
+        );
     };
 
     const toCurrency = (amount) => `$${amount.toFixed(2)}`;
 
     const getTrackBasePrice = (category, trackName) => {
-      const track = (trackCatalog[category] || []).find((item) => item.name === trackName);
+      const track = (trackCatalog[category] || []).find(
+        (item) => item.name === trackName,
+      );
       return track ? track.price : 0;
     };
 
@@ -2706,7 +2753,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const bookingFee = 12;
       const discountRate = couponDiscounts[coupon] || 0;
       const discountAmount = programSubtotal * discountRate;
-      const taxable = Math.max(programSubtotal + bookingFee - discountAmount, 0);
+      const taxable = Math.max(
+        programSubtotal + bookingFee - discountAmount,
+        0,
+      );
       const tax = taxable * 0.07;
       const total = taxable + tax;
 
@@ -2727,7 +2777,9 @@ document.addEventListener("DOMContentLoaded", () => {
         frequency,
         payment: formData.get("payment"),
         cardName: formData.get("cardName") || "",
-        cardLast4: (formData.get("cardNumber") || "").replace(/\D/g, "").slice(-4),
+        cardLast4: (formData.get("cardNumber") || "")
+          .replace(/\D/g, "")
+          .slice(-4),
         bankName: formData.get("bankName") || "",
         accountTitle: formData.get("accountTitle") || "",
         ibanLast4: normalizeIban(formData.get("iban") || "").slice(-4),
@@ -2751,7 +2803,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     const buildInvoiceMarkup = (invoice) => {
-      const dateLabel = formatInvoiceDate(invoice.createdAt || new Date().toISOString());
+      const dateLabel = formatInvoiceDate(
+        invoice.createdAt || new Date().toISOString(),
+      );
       const couponLabel = invoice.coupon || "None";
       const paymentDetails =
         invoice.payment === "Card"
@@ -2789,7 +2843,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p class="invoice-strong">${invoice.fullName}</p>
             <p>${invoice.email}</p>
             <p>${invoice.phone}</p>
-            <p>City: ${invoice.city || "—"}</p>
+            <p>City: ${invoice.city || "N/A"}</p>
           </div>
           <div class="invoice-block">
             <h4>Booking</h4>
@@ -2824,11 +2878,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const downloadInvoicePdf = (invoice) => {
-      if (!window.html2pdf) return;
-      const wrapper = document.createElement("div");
-      wrapper.className = "invoice-print-container";
-      wrapper.innerHTML = `<div class="booking-invoice invoice-print">${buildInvoiceMarkup(invoice)}</div>`;
-      document.body.appendChild(wrapper);
+      const jsPDF = window.jspdf ? window.jspdf.jsPDF : null;
+      if (!jsPDF) {
+        console.error("jsPDF not loaded. Check CDN script include.");
+        alert("PDF library not loaded. Please refresh the page and try again.");
+        return;
+      }
 
       const safeName = (invoice.fullName || "Client")
         .toString()
@@ -2836,26 +2891,124 @@ document.addEventListener("DOMContentLoaded", () => {
         .replace(/\s+/g, "-")
         .replace(/[^A-Za-z0-9-]/g, "");
       const dateStamp = new Date().toISOString().split("T")[0];
+      const filename = `MindfulIntentions-Invoice-${safeName || "Client"}-${dateStamp}.pdf`;
 
-      const options = {
-        margin: 8,
-        filename: `MindfulIntentions-Invoice-${safeName || "Client"}-${dateStamp}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      const doc = new jsPDF({ unit: "pt", format: "a4" });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 40;
+      let cursorY = 52;
+
+      doc.setFillColor(220, 38, 38);
+      doc.roundedRect(margin, cursorY - 24, 36, 36, 8, 8, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.text("MI", margin + 18, cursorY - 2, { align: "center" });
+
+      doc.setTextColor(17, 24, 39);
+      doc.setFontSize(18);
+      doc.text("Booking Invoice", margin + 52, cursorY - 2);
+      doc.setFontSize(10);
+      doc.setTextColor(107, 114, 128);
+      doc.text("MindfulIntentions Wellness", margin + 52, cursorY + 14);
+
+      doc.setFontSize(10);
+      doc.setTextColor(107, 114, 128);
+      doc.text("Invoice ID", pageWidth - margin, cursorY - 10, { align: "right" });
+      doc.setTextColor(17, 24, 39);
+      doc.text(invoice.invoiceId, pageWidth - margin, cursorY + 4, { align: "right" });
+      doc.setTextColor(107, 114, 128);
+      doc.text("Date", pageWidth - margin, cursorY + 18, { align: "right" });
+      doc.setTextColor(17, 24, 39);
+      doc.text(formatInvoiceDate(invoice.createdAt), pageWidth - margin, cursorY + 32, {
+        align: "right",
+      });
+
+      cursorY += 54;
+      doc.setDrawColor(234, 88, 12);
+      doc.setLineWidth(2);
+      doc.line(margin, cursorY, pageWidth - margin, cursorY);
+      cursorY += 18;
+
+      const drawSection = (title, rows) => {
+        const sectionWidth = pageWidth - margin * 2;
+        const rowHeight = 16;
+        const headerHeight = 18;
+        const sectionHeight = headerHeight + rows.length * rowHeight + 16;
+
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(229, 231, 235);
+        doc.roundedRect(margin, cursorY, sectionWidth, sectionHeight, 10, 10, "FD");
+
+        doc.setFontSize(9);
+        doc.setTextColor(107, 114, 128);
+        doc.text(title.toUpperCase(), margin + 12, cursorY + 14);
+
+        let rowY = cursorY + headerHeight + 6;
+        doc.setFontSize(11);
+        rows.forEach(([label, value]) => {
+          doc.setTextColor(107, 114, 128);
+          doc.text(label, margin + 12, rowY);
+          doc.setTextColor(17, 24, 39);
+          doc.text(value, pageWidth - margin - 12, rowY, { align: "right" });
+          rowY += rowHeight;
+        });
+
+        cursorY += sectionHeight + 14;
       };
 
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          window.html2pdf()
-            .set(options)
-            .from(wrapper)
-            .save()
-            .finally(() => {
-              wrapper.remove();
-            });
-        }, 60);
-      });
+      drawSection("Client", [
+        ["Name", invoice.fullName],
+        ["Email", invoice.email],
+        ["Phone", invoice.phone],
+        ["City", invoice.city || "N/A"],
+      ]);
+
+      drawSection("Booking", [
+        ["Program", invoice.trackName],
+        ["Category", invoice.categoryLabel],
+        ["Duration / Frequency", `${invoice.duration} / ${invoice.frequency}`],
+        ["Mode & Slot", `${invoice.mode} (${invoice.slot})`],
+        ["Start Date", invoice.startDate],
+        ["Goal", invoice.goal],
+      ]);
+
+      const paymentRows =
+        invoice.payment === "Card"
+          ? [["Method", "Card"], ["Card", `**** **** **** ${invoice.cardLast4 || "----"}`]]
+          : invoice.payment === "Bank Transfer"
+            ? [
+                ["Method", "Bank Transfer"],
+                ["Bank", invoice.bankName || "----"],
+                ["Account Title", invoice.accountTitle || "----"],
+                [
+                  "IBAN / Txn",
+                  `PK***************${invoice.ibanLast4 || "----"} | ${invoice.transactionId || "----"}`,
+                ],
+                ["Transfer Date", invoice.transferDate || "----"],
+              ]
+            : [["Method", invoice.payment]];
+
+      drawSection("Payment Details", paymentRows);
+
+      drawSection("Charges", [
+        ["Program Charges", toCurrency(invoice.programSubtotal)],
+        ["Booking Fee", toCurrency(invoice.bookingFee)],
+        ["Coupon Code", invoice.coupon || "None"],
+        ["Coupon Discount", `-${toCurrency(invoice.discountAmount)}`],
+        ["Tax (7%)", toCurrency(invoice.tax)],
+        ["Total Due", toCurrency(invoice.total)],
+      ]);
+
+      doc.setFontSize(9);
+      doc.setTextColor(107, 114, 128);
+      doc.text(
+        "Coupon code must be scanned at delivery. Keep this invoice for verification.",
+        margin,
+        cursorY + 6,
+      );
+
+      doc.save(filename);
     };
 
     const resetBookingState = () => {
@@ -2866,9 +3019,11 @@ document.addEventListener("DOMContentLoaded", () => {
       currentBookingStep = 1;
       lastInvoice = null;
       invalidCouponAttempts = 0;
-      bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
-        field.classList.remove("is-valid", "is-invalid");
-      });
+      bookingForm
+        .querySelectorAll("input, select, textarea")
+        .forEach((field) => {
+          field.classList.remove("is-valid", "is-invalid");
+        });
       if (couponInput) couponInput.disabled = false;
       setCouponFeedback("");
       updateTrackOptions("");
@@ -2898,18 +3053,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (cardNumberInput) {
-        cardNumberInput.addEventListener("input", () => {
-          const digits = cardNumberInput.value.replace(/\D/g, "").slice(0, 16);
-          cardNumberInput.value = digits.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
-          validateField(cardNumberInput);
-        });
-      }
+      cardNumberInput.addEventListener("input", () => {
+        const digits = cardNumberInput.value.replace(/\D/g, "").slice(0, 16);
+        cardNumberInput.value = digits.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
+        validateField(cardNumberInput);
+      });
+    }
 
     if (cardExpiryInput) {
       cardExpiryInput.addEventListener("input", () => {
         const digits = cardExpiryInput.value.replace(/\D/g, "").slice(0, 6);
         cardExpiryInput.value =
-          digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
+          digits.length > 2
+            ? `${digits.slice(0, 2)}/${digits.slice(2)}`
+            : digits;
         validateField(cardExpiryInput);
       });
     }
@@ -2984,7 +3141,10 @@ document.addEventListener("DOMContentLoaded", () => {
         setCouponFeedback("Coupon could not be applied.", "danger");
         if (invalidCouponAttempts >= 3) {
           if (couponInput) couponInput.disabled = true;
-          setCouponFeedback("Coupon validation limit reached. Continue without coupon.", "warning");
+          setCouponFeedback(
+            "Coupon validation limit reached. Continue without coupon.",
+            "warning",
+          );
         }
         return;
       }
