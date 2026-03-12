@@ -3324,7 +3324,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!supportsFinePointer) return;
 
     const cursor = document.createElement("div");
-    cursor.className = "mi-cursor is-hidden";
+    cursor.className = "mi-cursor";
     cursor.innerHTML =
       '<div class="mi-cursor-ring"></div><div class="mi-cursor-dot"></div>';
     document.body.appendChild(cursor);
@@ -3349,7 +3349,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateState = (event) => {
       const target = event.target;
       const interactiveSelector =
-        "a, button, .btn, .nav-link, .navbar-cta, .pose-card, .course-card, .meditation-card, .book-card, .testimonial-card, .social-icon, .social-circle-link, .contact-link-wrapper, .footer-links a";
+        "a, button, .btn, .nav-link, .navbar-cta, .pose-card, .course-card, .meditation-card, .book-card, .testimonial-card, .social-icon, .social-circle-link, .contact-link-wrapper, .footer-links a, .back-to-top";
       const textSelector = "input, textarea, select";
       document.body.classList.toggle(
         "cursor-hover",
@@ -3366,7 +3366,6 @@ document.addEventListener("DOMContentLoaded", () => {
       (event) => {
         mouseX = event.clientX;
         mouseY = event.clientY;
-        cursor.classList.remove("is-hidden");
         updateState(event);
       },
       { passive: true },
@@ -3379,13 +3378,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.remove("cursor-click"),
     );
 
-    window.addEventListener("mouseleave", () =>
-      cursor.classList.add("is-hidden"),
-    );
-    window.addEventListener("mouseenter", () =>
-      cursor.classList.remove("is-hidden"),
-    );
-
     document.addEventListener("focusin", updateState);
     document.addEventListener("focusout", () =>
       document.body.classList.remove("cursor-text"),
@@ -3395,6 +3387,19 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   initPremiumCursor();
+
+  // ================= BACK TO TOP =================
+  const backToTopBtn = document.getElementById("back-to-top");
+  if (backToTopBtn) {
+    const toggleBackToTop = () => {
+      backToTopBtn.classList.toggle("show", window.scrollY > 400);
+    };
+    toggleBackToTop();
+    window.addEventListener("scroll", toggleBackToTop, { passive: true });
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 });
 
 // Navbar Scroll Logic
