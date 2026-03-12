@@ -3315,6 +3315,86 @@ document.addEventListener("DOMContentLoaded", () => {
       if (successOverlay) successOverlay.classList.add("show");
     });
   }
+
+  // ================= PREMIUM CURSOR =================
+  const initPremiumCursor = () => {
+    const supportsFinePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)",
+    ).matches;
+    if (!supportsFinePointer) return;
+
+    const cursor = document.createElement("div");
+    cursor.className = "mi-cursor is-hidden";
+    cursor.innerHTML =
+      '<div class="mi-cursor-ring"></div><div class="mi-cursor-dot"></div>';
+    document.body.appendChild(cursor);
+
+    const ring = cursor.querySelector(".mi-cursor-ring");
+    const dot = cursor.querySelector(".mi-cursor-dot");
+    if (!ring || !dot) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    const render = () => {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%) scale(var(--cursor-ring-scale, 1))`;
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%) scale(var(--cursor-dot-scale, 1))`;
+      requestAnimationFrame(render);
+    };
+
+    const updateState = (event) => {
+      const target = event.target;
+      const interactiveSelector =
+        "a, button, .btn, .nav-link, .navbar-cta, .pose-card, .course-card, .meditation-card, .book-card, .testimonial-card, .social-icon, .social-circle-link, .contact-link-wrapper, .footer-links a";
+      const textSelector = "input, textarea, select";
+      document.body.classList.toggle(
+        "cursor-hover",
+        Boolean(target && target.closest(interactiveSelector)),
+      );
+      document.body.classList.toggle(
+        "cursor-text",
+        Boolean(target && target.closest(textSelector)),
+      );
+    };
+
+    window.addEventListener(
+      "mousemove",
+      (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        cursor.classList.remove("is-hidden");
+        updateState(event);
+      },
+      { passive: true },
+    );
+
+    window.addEventListener("mousedown", () =>
+      document.body.classList.add("cursor-click"),
+    );
+    window.addEventListener("mouseup", () =>
+      document.body.classList.remove("cursor-click"),
+    );
+
+    window.addEventListener("mouseleave", () =>
+      cursor.classList.add("is-hidden"),
+    );
+    window.addEventListener("mouseenter", () =>
+      cursor.classList.remove("is-hidden"),
+    );
+
+    document.addEventListener("focusin", updateState);
+    document.addEventListener("focusout", () =>
+      document.body.classList.remove("cursor-text"),
+    );
+
+    render();
+  };
+
+  initPremiumCursor();
 });
 
 // Navbar Scroll Logic
@@ -3324,6 +3404,7 @@ window.addEventListener("scroll", function () {
   const currentY = window.scrollY;
   const previousY = Number(document.body.dataset.lastScrollY || 0);
   const menuOpen = Boolean(document.querySelector(".navbar-collapse.show"));
+  const isMobile = window.innerWidth < 992;
 
   if (window.scrollY > 50) {
     navbar.classList.add("scrolled");
@@ -3331,18 +3412,24 @@ window.addEventListener("scroll", function () {
     navbar.classList.remove("scrolled");
   }
 
-  if (!menuOpen && currentY > previousY && currentY > 180) {
-    navbar.classList.add("nav-hidden");
+  if (!isMobile) {
+    if (!menuOpen && currentY > previousY && currentY > 180) {
+      navbar.classList.add("nav-hidden");
+    } else {
+      navbar.classList.remove("nav-hidden");
+    }
   } else {
     navbar.classList.remove("nav-hidden");
   }
   document.body.dataset.lastScrollY = String(currentY);
 
-  const openCollapse = document.querySelector(".navbar-collapse.show");
-  if (openCollapse) {
-    const bsCollapse =
-      bootstrap.Collapse.getInstance(openCollapse) ||
-      new bootstrap.Collapse(openCollapse);
-    bsCollapse.hide();
+  if (!isMobile) {
+    const openCollapse = document.querySelector(".navbar-collapse.show");
+    if (openCollapse) {
+      const bsCollapse =
+        bootstrap.Collapse.getInstance(openCollapse) ||
+        new bootstrap.Collapse(openCollapse);
+      bsCollapse.hide();
+    }
   }
 });

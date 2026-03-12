@@ -14,6 +14,16 @@
   --island-radius: 100px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -21,6 +31,98 @@ body {
   color: var(--text-dark);
   overflow-x: hidden;
   line-height: 1.6;
+}
+
+/* ================= CUSTOM CURSOR ================= */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+    --cursor-ring-scale: 1;
+    --cursor-dot-scale: 1;
+  }
+
+  body,
+  body * {
+    cursor: none !important;
+  }
+
+  body.cursor-hover {
+    --cursor-ring-scale: 0.7;
+    --cursor-dot-scale: 1.7;
+  }
+
+  body.cursor-click {
+    --cursor-ring-scale: 0.6;
+    --cursor-dot-scale: 1.2;
+  }
+
+  body.cursor-text {
+    --cursor-ring-scale: 1.15;
+    --cursor-dot-scale: 0.2;
+  }
+
+  body.cursor-text .mi-cursor {
+    opacity: 0;
+  }
+
+  .mi-cursor {
+    position: fixed;
+    inset: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .mi-cursor.is-hidden {
+    opacity: 0;
+  }
+
+  .mi-cursor-dot,
+  .mi-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate3d(0, 0, 0) translate(-50%, -50%);
+    border-radius: 50%;
+    will-change: transform;
+  }
+
+  .mi-cursor-dot {
+    width: 7px;
+    height: 7px;
+    background: linear-gradient(135deg, #ce0404, #ff3f0a);
+    box-shadow:
+      0 0 12px rgba(206, 4, 4, 0.45),
+      0 0 24px rgba(255, 63, 10, 0.3);
+  }
+
+  .mi-cursor-ring {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(206, 4, 4, 0.35);
+    background: radial-gradient(
+      circle,
+      rgba(255, 63, 10, 0.18) 0%,
+      rgba(255, 63, 10, 0.08) 45%,
+      rgba(255, 63, 10, 0) 65%
+    );
+    box-shadow:
+      0 0 18px rgba(206, 4, 4, 0.2),
+      inset 0 0 10px rgba(206, 4, 4, 0.15);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mi-cursor-ring,
+  .mi-cursor-dot {
+    transition: none !important;
+  }
 }
 
 .poses-section {
@@ -588,6 +690,18 @@ img {
   }
 }
 
+@media (max-width: 576px) {
+  .hero-btn-group-premium {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-btn-group-premium .btn-luxury {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 /* ensure nav remains wide on small screens and adjusts padding */
 @media (max-width: 768px) {
   .navbar,
@@ -1024,7 +1138,29 @@ img {
 
 /* Mobile Menu */
 @media (max-width: 991px) {
+  .navbar,
+  .navbar.scrolled {
+    width: 94%;
+    padding: 10px 18px;
+  }
+
+  .navbar .container-fluid {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .navbar-brand-wrapper {
+    order: 1;
+  }
+
+  .navbar-toggler {
+    order: 2;
+    margin-left: auto;
+  }
+
   .navbar-collapse {
+    order: 3;
+    width: 100%;
     background: var(--white);
     padding: 25px;
     border-radius: 20px;
@@ -1160,6 +1296,7 @@ img {
 .hero-btn-group-premium {
   display: flex;
   gap: 25px;
+  flex-wrap: wrap;
 }
 
 /* ================= DECORATIVE SHAPES ================= */
@@ -1380,6 +1517,7 @@ section {
   position: relative;
   width: 100%;
   padding: 40px 0;
+  overflow: hidden;
   /* Soft Edge Masking */
   mask-image: linear-gradient(
     to right,
@@ -1456,8 +1594,31 @@ section {
     height: 400px;
   }
 
+  .about-image-premium {
+    overflow: hidden;
+    border-radius: 30px;
+  }
+
   .glass-badge-floating {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-item-premium {
+    width: 320px;
+    height: 220px;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-track-premium {
+    gap: 16px;
+  }
+
+  .carousel-item-premium {
+    width: 260px;
+    height: 180px;
   }
 }
 
@@ -2999,6 +3160,7 @@ button,
   backdrop-filter: blur(25px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   position: relative;
+  overflow: hidden;
 }
 
 .contact-form-card::after {
