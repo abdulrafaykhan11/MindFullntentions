@@ -2737,15 +2737,17 @@
                   <div class="row g-4">
                     <div class="col-12">
                       <div class="form-floating-premium">
-                        <select class="form-select" id="form-interest">
-                          <option value="yoga">Yoga Sessions</option>
-                          <option value="meditation">
-                            Meditation Retreats
+                        <select class="form-select" id="form-interest" required>
+                          <option value="" selected disabled>
+                            Choose a suggestion type
                           </option>
-                          <option value="combined">Combined Wellness</option>
-                          <option value="other">Other Inquiries</option>
+                          <option value="content">Content / Articles</option>
+                          <option value="features">Website Features</option>
+                          <option value="design">Design / UI</option>
+                          <option value="support">Support / Help</option>
+                          <option value="other">Other</option>
                         </select>
-                        <label for="form-interest">I'm interested in...</label>
+                        <label for="form-interest">Suggestion Type</label>
                       </div>
                     </div>
                     <div class="col-12">
@@ -2753,11 +2755,11 @@
                         <textarea
                           class="form-control"
                           id="form-message"
-                          placeholder="Your Message"
+                          placeholder="Write your suggestion (what to improve, any issues, or new ideas)."
                           style="height: 150px"
                           required
                         ></textarea>
-                        <label for="form-message">Your Message</label>
+                        <label for="form-message">Your Suggestion</label>
                         <div class="validation-dot"></div>
                       </div>
                     </div>

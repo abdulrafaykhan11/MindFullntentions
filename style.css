@@ -3235,6 +3235,50 @@ button,
   pointer-events: none;
 }
 
+.contact-section-premium .form-progress-header .step-indicator {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-section-premium #step-title {
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-section-premium .form-floating-premium .form-control,
+.contact-section-premium .form-floating-premium .form-select,
+.contact-section-premium .form-floating-premium textarea {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+  color: #111827;
+}
+
+.contact-section-premium .form-floating-premium label {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.contact-section-premium .form-floating-premium .form-control::placeholder,
+.contact-section-premium .form-floating-premium textarea::placeholder {
+  color: transparent;
+}
+
+.contact-section-premium
+  .form-floating-premium
+  .form-control:focus::placeholder,
+.contact-section-premium
+  .form-floating-premium
+  textarea:focus::placeholder {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
 .form-floating-premium {
   position: relative;
 }
@@ -3251,6 +3295,17 @@ button,
   font-weight: 500;
 }
 
+.form-floating-premium .form-control::placeholder,
+.form-floating-premium textarea::placeholder {
+  color: transparent;
+  transition: color 0.2s ease;
+}
+
+.form-floating-premium .form-control:focus::placeholder,
+.form-floating-premium textarea:focus::placeholder {
+  color: #9ca3af;
+}
+
 .form-floating-premium label {
   position: absolute;
   top: 25px;
@@ -3263,11 +3318,22 @@ button,
 .form-floating-premium .form-control:focus ~ label,
 .form-floating-premium .form-control:not(:placeholder-shown) ~ label,
 .form-floating-premium .form-select:focus ~ label,
-.form-floating-premium .form-select:not([value=""]):valid ~ label {
+.form-floating-premium .form-select:valid ~ label {
   top: 0;
   font-size: 0.8rem;
   color: var(--primary-color);
   font-weight: 600;
+}
+
+.form-floating-premium .form-select ~ label {
+  top: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.form-floating-premium .form-select:focus ~ label {
+  color: var(--primary-color);
 }
 
 .form-floating-premium .form-control:focus,

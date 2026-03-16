@@ -3012,7 +3012,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const resetBookingState = () => {
-      bookingForm.reset();
+      bookingForm.reset()
       bookingForm.classList.remove("d-none");
       if (bookingInvoice) bookingInvoice.classList.add("d-none");
       if (bookingSuccess) bookingSuccess.classList.add("d-none");
@@ -3280,7 +3280,7 @@ document.addEventListener("DOMContentLoaded", () => {
       steps[1].classList.add("active-step");
       if (progress) progress.style.width = "100%";
       if (stepNum) stepNum.innerText = "2";
-      if (stepTitle) stepTitle.innerText = "Message Details";
+      if (stepTitle) stepTitle.innerText = "Suggestion Details";
     };
 
     window.prevStep = () => {
